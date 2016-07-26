@@ -2,6 +2,7 @@
 /app/config/parameters.yml
 /vendor/
 /.idea/
-/var/
-
+/var/cache/
+/var/sessions/
+/var/logs/
 
