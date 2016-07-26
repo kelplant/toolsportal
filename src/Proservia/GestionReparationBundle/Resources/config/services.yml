@@ -1,0 +1,54 @@
+parameters:
+    repair.ticket_manager.class: Proservia\GestionReparationBundle\Services\Manager\TicketManager
+    repair.entity.ticket_manager.class: Proservia\GestionReparationBundle\Entity\Ticket
+    repair.entityname.ticket_manager.class: 'Proservia\GestionReparationBundle\Entity\Ticket'
+    repair.argname.ticket_manager.class: 'Le Ticket'
+
+    repair.ticket_events_manager.class: Proservia\GestionReparationBundle\Services\Manager\TicketEventsManager
+    repair.entity.ticket_events_manager.class: Proservia\GestionReparationBundle\Entity\TicketEvents
+    repair.entityname.ticket_events_manager.class: 'Proservia\GestionReparationBundle\Entity\TicketEvents'
+    repair.argname.ticket_events_manager.class: 'Le Ticket'
+
+    repair.panne_manager.class: Proservia\GestionReparationBundle\Services\Manager\PanneManager
+    repair.entity.panne_manager.class: Proservia\GestionReparationBundle\Entity\Panne
+    repair.entityname.panne_manager.class: 'Proservia\GestionReparationBundle\Entity\Panne'
+    repair.argname.panne_manager.class: 'Le Ticket'
+
+    repair.panne_category_manager.class: Proservia\GestionReparationBundle\Services\Manager\PanneCategoryManager
+    repair.entity.panne_category_manager.class: Proservia\GestionReparationBundle\Entity\PanneCategory
+    repair.entityname.panne_category_manager.class: 'Proservia\GestionReparationBundle\Entity\PanneCategory'
+    repair.argname.panne_category_manager.class: 'Le Ticket'
+
+
+services:
+    repair.ticket_manager:
+        class: '%repair.ticket_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%repair.entity.ticket_manager.class%"]]
+        - [setEntityName, ["%repair.entityname.ticket_manager.class%"]]
+        - [setArgname, ["%repair.argname.ticket_manager.class%"]]
+
+    repair.ticket_events_manager:
+        class: '%repair.ticket_events_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%repair.entity.ticket_events_manager.class%"]]
+        - [setEntityName, ["%repair.entityname.ticket_events_manager.class%"]]
+        - [setArgname, ["%repair.argname.ticket_events_manager.class%"]]
+
+    repair.panne_manager:
+        class: '%repair.panne_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%repair.entity.panne_manager.class%"]]
+        - [setEntityName, ["%repair.entityname.panne_manager.class%"]]
+        - [setArgname, ["%repair.argname.panne_manager.class%"]]
+
+    repair.panne_category_manager:
+        class: '%repair.ticket_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%repair.entity.panne_category_manager.class%"]]
+        - [setEntityName, ["%repair.entityname.panne_category_manager.class%"]]
+        - [setArgname, ["%repair.argname.panne_category_manager.class%"]]

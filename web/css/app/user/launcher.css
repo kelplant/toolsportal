@@ -1,0 +1,89 @@
+body {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 14px;
+  line-height: 1.5em;
+  font-weight: 400;
+}
+
+p, span, a, ul, li, button {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+strong {
+  font-weight: 600;
+}
+
+h3 {
+  font-family: 'Exo 2', sans-serif;
+  line-height: 1.5em;
+  font-weight: bold;
+}
+
+h4 {
+  font-family: 'Exo 2', sans-serif;
+  line-height: 1.0em;
+  font-weight: bold;
+}
+
+strong {
+  font-weight: 400;
+}
+
+.tile {
+  width: 100%;
+  display: inline-block;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 20px;
+  margin-bottom: 30px;
+  font-family: 'Exo 2', sans-serif;
+}
+.tile .title {
+  margin-top: 0px;
+  font-family: 'Exo 2', sans-serif;
+}
+.tile.purple, .tile.blue, .tile.red, .tile.orange, .tile.green {
+  color: #fff;
+}
+.tile.purple {
+  background: #5133AB;
+}
+.tile.purple:hover {
+  background: #3e2784;
+}
+.tile.red {
+  background: #AC193D;
+}
+.tile.red:hover {
+  background: #7f132d;
+}
+.tile.green {
+  background: #00A600;
+}
+.tile.green:hover {
+  background: #007300;
+}
+.tile.blue {
+  background: #2672EC;
+}
+.tile.blue:hover {
+  background: #125acd;
+}
+.tile.orange {
+  background: #DC572E;
+}
+.tile.orange:hover {
+  background: #b8431f;
+}
+.launcher_img {
+  float: right;
+  height: 60px;
+  margin-top: 10px;
+  margin-right: 5px;
+}
+.tile:hover {
+  cursor: pointer;
+}

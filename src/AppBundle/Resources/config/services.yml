@@ -1,0 +1,26 @@
+imports:
+    - { resource: "@AppBundle/Resources/config/services_core_controllers.yml" }
+
+parameters:
+    app.abstract_manager.class: AppBundle\Services\Manager\AbstractManager
+    app.parameters_calls.class: AppBundle\Services\Manager\ParametersManager
+    app.factory.abstract.class: AppBundle\Factory\AbstractFactory
+
+services:
+    app.parameters_calls:
+        class: '%app.parameters_calls.class%'
+        arguments: ['@doctrine']
+
+    app.abstract_manager:
+        class: '%app.abstract_manager.class%'
+        abstract: true
+        arguments: ['@doctrine', '@session']
+
+    app.factory.abstract:
+        class: '%app.factory.abstract.class%'
+        abstract: true
+
+    twig.extension.intl:
+           class: Twig_Extensions_Extension_Intl
+           tags:
+               - { name: twig.extension }

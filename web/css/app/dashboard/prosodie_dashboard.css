@@ -1,0 +1,127 @@
+.main_box_paddng_bottom{
+    padding-bottom: 20px;
+}
+.small_box_th_style {
+    width: 23%;
+    border-bottom: 1px solid #3e8ebd !important;
+}
+.small_box_th_style_left {
+    width: 31%;
+    border-bottom: 1px solid #3e8ebd !important;
+}
+.small_box_main_th_left {
+    width: 31%;
+    border-bottom:hidden !important;
+}
+.small_box_main_th_right {
+    width: 69%;
+    border-bottom: hidden !important;
+}
+.small_box_tr_style_left {
+    width: 31%;
+    border-right: 1px solid #3e8ebd;
+}
+.small_box_tr_style {
+    width: 23%;
+}
+.big_box_th_style {
+    width: 7%;
+    border-bottom: 1px solid #3e8ebd !important;
+}
+.big_box_th_style_left {
+    width: 12%;
+    border-bottom: 1px solid #3e8ebd !important;
+}
+.big_box_main_th_left {
+    width: 12%;
+    border-bottom: hidden !important;
+}
+.big_box_main_th_right {
+    width: 21%;
+    border-bottom: hidden !important;
+}
+.big_box_tr_style_left {
+    width: 12%;
+    border-right: 1px solid #3e8ebd !important;
+}
+.big_box_tr_style {
+    width: 7%;
+}
+.big_box_tr_style_separator {
+    width: 7%;
+    border-right: 1px solid #3e8ebd !important;
+}
+.th_bottom {
+    border-bottom: 1px solid #3e8ebd !important;
+}
+.right_solid {
+    border-right: 1px solid #3e8ebd !important;
+}
+
+th.rotate {
+    /* Something you can count on */
+    height: 140px;
+    white-space: nowrap;
+}
+
+th.rotate > div {
+    transform:
+        /* Magic Numbers */
+            translate(10px, -10px)
+                /* 45 is really 360 - 45 */
+            rotate(325deg);
+    width: 25px;
+}
+th.rotate > div > span {
+
+}
+
+#containerOrange {
+    overflow: hidden
+}
+
+#containerProsodie {
+    overflow: hidden
+}
+
+.pannerOrange {
+    display:block;
+    position:fixed;
+    width:50px;
+    height:50px;
+    top:45%;
+}
+.pannerProsodie {
+    display:block;
+    position:fixed;
+    width:50px;
+    height:50px;
+    top:45%;
+}
+.active {
+    color:red;
+}
+#panLeftOrange {
+    position: absolute;
+    top:50px;
+    left:15px;
+    color: #3e8ebd;
+}
+#panRightOrange {
+    position: absolute;
+    top:50px;
+    right:0px;
+    color: #3e8ebd;
+}
+#panLeftProsodie {
+    position: absolute;
+    top:50px;
+    left:15px;
+    color: #3e8ebd;
+}
+#panRightProsodie {
+    position: absolute;
+    top:50px;
+    right:0px;
+    color: #3e8ebd;
+}

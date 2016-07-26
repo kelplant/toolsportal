@@ -1,0 +1,66 @@
+parameters:
+    core.product_manager.class: Proservia\CoreBundle\Services\Manager\ProductManager
+    core.entity.product_manager.class: Proservia\CoreBundle\Entity\Product
+    core.entityname.product_manager.class: 'Proservia\CoreBundle\Entity\Product'
+    core.argname.product_manager.class: 'Le Produit'
+
+    core.product_category_manager.class: Proservia\CoreBundle\Services\Manager\ProductCategoryManager
+    core.entity.product_category_manager.class: Proservia\CoreBundle\Entity\ProductCategory
+    core.entityname.product_category_manager.class: 'Proservia\CoreBundle\Entity\ProductCategory'
+    core.argname.product_category_manager.class: 'La catégorie'
+
+    core.site_manager.class: Proservia\CoreBundle\Services\Manager\SiteManager
+    core.entity.site_manager.class: Proservia\CoreBundle\Entity\Site
+    core.entityname.site_manager.class: 'Proservia\CoreBundle\Entity\Site'
+    core.argname.site_manager.class: 'La site'
+
+    core.contact_manager.class: Proservia\CoreBundle\Services\Manager\ContactManager
+    core.entity.contact_manager.class: Proservia\CoreBundle\Entity\Contact
+    core.entityname.contact_manager.class: 'Proservia\CoreBundle\Entity\Contact'
+    core.argname.contact_manager.class: 'La Contact'
+
+    core.etiquettelist_manager.class: Proservia\CoreBundle\Services\Manager\EtiquetteListManager
+    core.entity.etiquettelist_manager.class: Proservia\CoreBundle\Entity\EtiquetteList
+    core.entityname.etiquettelist_manager.class: 'Proservia\CoreBundle\Entity\EtiquetteList'
+    core.argname.etiquettelist_manager.class: 'La Contact'
+
+services:
+    core.product_manager:
+        class: '%core.product_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.product_manager.class%"]]
+        - [setEntityName, ["%core.entityname.product_manager.class%"]]
+        - [setArgname, ["%core.argname.product_manager.class%"]]
+
+    core.product_category_manager:
+        class: '%core.product_category_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.product_category_manager.class%"]]
+        - [setEntityName, ["%core.entityname.product_category_manager.class%"]]
+        - [setArgname, ["%core.argname.product_category_manager.class%"]]
+
+    core.site_manager:
+        class: '%core.site_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.site_manager.class%"]]
+        - [setEntityName, ["%core.entityname.site_manager.class%"]]
+        - [setArgname, ["%core.argname.site_manager.class%"]]
+
+    core.contact_manager:
+        class: '%core.contact_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.contact_manager.class%"]]
+        - [setEntityName, ["%core.entityname.contact_manager.class%"]]
+        - [setArgname, ["%core.argname.contact_manager.class%"]]
+
+    core.etiquettelist_manager:
+        class: '%core.etiquettelist_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%core.entity.etiquettelist_manager.class%"]]
+        - [setEntityName, ["%core.entityname.etiquettelist_manager.class%"]]
+        - [setArgname, ["%core.argname.etiquettelist_manager.class%"]]

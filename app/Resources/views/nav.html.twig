@@ -1,0 +1,70 @@
+<nav class="navbar navbar-static-top">
+    <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <span class="sr-only">Toggle navigation</span>
+    </a>
+    <div class="navbar-custom-menu">
+        <ul class="nav navbar-nav">
+            <li class="dropdown tasks-menu">
+            <li class="dropdown notifications-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-bell-o"></i>
+                    {% if (session_messaging|length > 0) %}
+                    <span class="label label-{{ globalAlertColor }}">{{ session_messaging|length }}</span>
+                    {% endif %}
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="header">Vous avez {{ session_messaging|length }} notifications</li>
+                    <li>
+                        {% if session_messaging is defined and session_messaging|length > 0 %}
+                            <ul class="menu">
+                                {% for message in session_messaging %}
+                                    {% if (message.errorCode == 0) %}
+                                        <li>
+                                            <a href="#" title="{{ message.message }}">
+                                                <i class="fa fa-hand-spock-o text-green"></i>  {{ message.message }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                    {% if (message.errorCode != 0) %}
+                                        <li>
+                                            <a href="#" title="{{ message.message }}">
+                                                <i class="fa fa-warning text-yellow"></i> {{ message.message }}
+                                            </a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                </ul>
+            </li>
+
+            <li class="dropdown user user-menu">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    {#<img src="data:{{ currentUserInfos.photoMineType }};base64,{{ userPhoto }}" class="user-image" alt="User Image">#}
+                    <span class="hidden-xs">{{ app.user.username }}</span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li class="user-header">
+                        {#<img src="data:{{ currentUserInfos.photoMineType }};base64,{{ userPhoto }}" class="img-circle" alt="User Image">#}
+                        <p>
+                            {#{{ currentUserInfos.displayName }} - ???????#}
+                            <small>Date d'entrée XX-XX-XXXX</small>
+                        </p>
+                    </li>
+                    <li class="user-body">
+                    </li>
+                    <li class="user-footer">
+                        {#<div class="pull-left">#}
+                            {#<a href="{{ path('user_profile_show' , { 'panel' : 'admin'}) }}" class="btn btn-default btn-flat">Profile</a>#}
+                        {#</div>#}
+                        <div class="pull-right">
+                            <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Déconnexion</a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </div>
+</nav>

@@ -1,0 +1,3 @@
+repair_annot:
+    resource: "@ProserviaGestionReparationBundle/Controller/"
+    type:     annotation

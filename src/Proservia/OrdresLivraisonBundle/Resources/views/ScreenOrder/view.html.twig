@@ -1,0 +1,60 @@
+{% extends 'AppBundle:Default:items.view.html.twig' %}
+    {% block title %} Ordres de Livraison Ecrans {% endblock %}
+    {% block title2 %} Ordres {% endblock %}
+    {% block title3 %} Ordres de Livraison Ecrans {% endblock %}
+    {% block breadcrumb %} Ordres de Livraison Ecrans {% endblock %}
+    {% block corps_table_title %}
+        <th class="admin_cat_table_title">OL</th>
+        <th class="admin_cat_table_title">Date</th>
+        <th class="admin_cat_table_title">Site</th>
+
+    {% endblock %}
+    {% block corps_table_cells %}
+        {% for item in all %}
+            <tr id="generalBtr" data-href="">
+                <td class="admin_cat_table_cell">{{ item.name }}</td>
+                <td class="admin_cat_table_cell">{{ item.date|date("d/m/Y") }}</td>
+                <td class="admin_cat_table_cell">{{ item.site }}</td>
+
+                <td class="admin_cat_table_cell_action">
+                    {% if item.isArchived == 0 %}
+                        <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxCoreEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                            <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
+                        </button>
+                        <a href="/orders/excel/generate/screen/{{ item.id }}">
+                        <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}">
+                            <span class="glyphicon glyphicon-download  btn-xs" aria-hidden="true"></span>
+                        </button>
+                        </a>
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id}) }}" title="Supprimer {{ alert_text }}" data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
+                            <button type="button" class="btn btn-default  btn-xs" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-remove  btn-xs" aria-hidden="true"></span>
+                            </button>
+                        </a>
+                    {% endif %}
+                    {% if item.isArchived == 1 %}
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id}) }}" title="Supprimer {{ alert_text }}" data-confirm="Etes-vous certain de vouloir rétablir {{ alert_text }} ?">
+                            <button type="button" class="btn btn-default  btn-xs" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-refresh  btn-xs" aria-hidden="true"></span>
+                            </button>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+
+    {% block modal_form %}
+
+        {% embed "@ProserviaOrdresLivraison/ScreenOrder/add.body.html.twig"  %}
+        {% endembed %}
+
+
+        {% embed "@ProserviaOrdresLivraison/ScreenOrder/edit.body.html.twig"  %}
+        {% endembed %}
+
+    {% endblock %}
+
+    {% block javascripts %}
+
+    {% endblock %}

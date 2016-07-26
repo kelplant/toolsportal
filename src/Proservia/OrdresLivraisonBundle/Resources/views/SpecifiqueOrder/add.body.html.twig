@@ -1,0 +1,114 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ path('form_exec_add_specifique_order') }}" method="post" class="form-horizontal">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Générer un OL Offre intégrée Spécifique</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="main_container">
+                        <input type="hidden" name="formAction" value="add">
+                        {{ form_errors(formAdd) }}
+                        <div class="form-group">
+                            {{ form_label(formAdd.site) }}
+                            {{ form_errors(formAdd.site) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.site) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.fixe1) }}
+                            {{ form_errors(formAdd.fixe1) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.fixe1) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.fixe2) }}
+                            {{ form_errors(formAdd.fixe2) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.fixe2) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.fixeBoost1) }}
+                            {{ form_errors(formAdd.fixeBoost1) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.fixeBoost1) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.fixeBoost2) }}
+                            {{ form_errors(formAdd.fixeBoost2) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.fixeBoost2) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.portable1) }}
+                            {{ form_errors(formAdd.portable1) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.portable1) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.portable2) }}
+                            {{ form_errors(formAdd.portable2) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.portable2) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.portableBoost1) }}
+                            {{ form_errors(formAdd.portableBoost1) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.portableBoost1) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formAdd.comments) }}
+                            {{ form_errors(formAdd.comments) }}
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formAdd.comments) }}
+                                </div>
+                            </div>
+                        </div>
+                            {#{{ form_row(formAdd.id) }}#}
+                        {{ form_rest(formAdd) }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-success" onclick="submit();">Créer</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

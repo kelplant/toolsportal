@@ -1,0 +1,39 @@
+<div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAddViaFile">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="#" method="post" class="form-horizontal">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title font_exo_2" id="myModalLabel">Import Assets SCOPE GP via .csv</h4>
+            </div>
+            <div class="modal-body">
+                <div class="main_container">
+                    <input type="hidden" name="formAction" value="addViaFile">
+                    <div class="form-group paddingViaFile">
+                        <div class="input-group" id="fileSelectDiv">
+                            <span class="input-group-btn">
+                                <span class="btn btn-primary btn-file">
+                                    Parcourir&hellip; <input type="file" id="fileUpload" accept=".csv">
+                                </span>
+                            </span>
+                            <input type="text" class="form-control" readonly>
+                        </div>
+                        <span class="help-block" id="fileUploadInfos">
+                            Télécharger un fichier .csv vide au bon format <a href="{{ asset('examples/scope_import_example.csv') }}" class="alert-link">Ici</a>
+                        </span>
+                        <div class="progress hide" id="progressBarBulkImportDiv">
+                            <div class="progress-bar progress-bar-success progress-bar-striped active" id="progressBarBulkImport" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width: 2%">
+                            </div>
+                        </div>
+                        <div class="hide text-center" id="resultInsertFile"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-success" id="upload" onclick="processCsvFile('/ajax/insert/scope_import/');">Envoyer</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div>

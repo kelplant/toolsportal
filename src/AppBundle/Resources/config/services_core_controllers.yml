@@ -1,0 +1,44 @@
+parameters:
+    core.abstract.controller_service.class: AppBundle\Services\Core\AbstractControllerService
+
+    core.delete.controller_service.class: AppBundle\Services\Core\DeleteControllerService
+    core.edit.controller_service.class: AppBundle\Services\Core\EditControllerService
+    core.add.controller_service.class: AppBundle\Services\Core\AddControllerService
+    core.index.controller_service.class: AppBundle\Services\Core\IndexControllerService
+
+services:
+    core.abstract.controller_service:
+        class: '%core.abstract.controller_service.class%'
+        abstract: true
+        arguments: ['@doctrine.orm.entity_manager']
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+
+    core.delete.controller_service:
+        class: '%core.delete.controller_service.class%'
+        parent: core.abstract.controller_service
+        arguments: ['@doctrine.orm.entity_manager']
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.edit.controller_service:
+        class: '%core.edit.controller_service.class%'
+        parent: core.abstract.controller_service
+        arguments: ['@doctrine.orm.entity_manager']
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.add.controller_service:
+        class: '%core.add.controller_service.class%'
+        parent: core.abstract.controller_service
+        arguments: ['@doctrine.orm.entity_manager']
+        calls:
+        - [ setContainer , [ "@service_container" ]]
+
+    core.index.controller_service:
+        class: '%core.index.controller_service.class%'
+        parent: core.abstract.controller_service
+        arguments: ['@doctrine.orm.entity_manager']
+        calls:
+        - [ setContainer , [ "@service_container" ]]

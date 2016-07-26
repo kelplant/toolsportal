@@ -1,0 +1,18 @@
+proservia_repaire:
+    resource: "@ProserviaGestionReparationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+proservia_core:
+    resource: "@ProserviaCoreBundle/Resources/config/routing.yml"
+    prefix:   /
+
+proservia_ordres_livraison:
+    resource: "@ProserviaOrdresLivraisonBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app_bundle:
+    resource: "@AppBundle/Resources/config/routing.yml"
+    prefix:   /
+
+fos_user:
+    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

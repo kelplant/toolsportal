@@ -1,0 +1,3 @@
+core_annot:
+    resource: "@ProserviaOrdresLivraisonBundle/Controller/"
+    type:     annotation

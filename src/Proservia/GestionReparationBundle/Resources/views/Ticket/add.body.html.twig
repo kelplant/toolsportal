@@ -1,0 +1,173 @@
+<div class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel" id="modalAdd">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content modal-lg">
+            <form action="{{ path('form_exec_add_ticket') }}" method="post" class="form-horizontal" id="form-add">
+                <div class="modal-header modal-lg">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="col-sm-4 pull-right">
+                    <div class="form-group" style="margin-bottom: 0px;padding-bottom: 0px">
+                        {{ form_errors(formAdd.status) }}
+                        <div class="col-sm-10 pull-right">
+                            <div class="input-group select2-bootstrap-prepend">
+                                <span class="input-group-addon"><i class="fa fa-database fa" aria-hidden="true"></i></span>
+                                {{ form_widget(formAdd.status, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Ajout d'un Ticket Réparation</h4>
+                </div>
+                <div class="modal-body modal-lg">
+                    <div class="container-fluid">
+                        <div class="col-sm-6">
+                            <input type="hidden" name="formAction" value="add">
+                            {{ form_errors(formAdd) }}
+                            <input type="hidden" name="ticket[user]" id="ticket_user" value="{{ currentUserInfos.id }}">
+                            <input type="hidden" name="ticket[status]" id="ticket_status" value="Ouvert">
+                            <div class="form-group font_exo_2">
+                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">DSP (Etiquette)</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        <select name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md select2-single monitor-dsp" required>
+                                            <option value="">--</option>
+                                            {% for key,item in fieldsOptions.listeDSP %}
+                                                <option class="" value="{{ key }}">{{ key }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group font_exo_2">
+                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Produit</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        <select name="ticket[product]" id="ticket_product" class="form-control font_exo_2 input-md select2-single" required>
+                                            <option value="">--</option>
+                                            {% for key,item in fieldsOptions.listeProduct %}
+                                                <option class="" value="{{ item }}">{{ key }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formAdd.buyMode) }}
+                                {{ form_errors(formAdd.buyMode) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.buyMode) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formAdd.endOfWarranty) }}
+                                {{ form_errors(formAdd.endOfWarranty) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.endOfWarranty) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formAdd.typeWarranty) }}
+                                {{ form_errors(formAdd.typeWarranty) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.typeWarranty) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                {{ form_label(formAdd.serial) }}
+                                {{ form_errors(formAdd.serial) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.serial) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                {{ form_label(formAdd.site) }}
+                                {{ form_errors(formAdd.site) }}
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.site) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group font_exo_2">
+                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Type Panne</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
+                                        <select name="ticket[type_panne]" id="ticket_type_panne" class="form-control font_exo_2 input-md select2-single" required>
+                                            <option value="">--</option>
+                                            {% for key,item in fieldsOptions.listePanneCategory %}
+                                                <option value="{{ item }}">{{ key }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group font_exo_2">
+                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Panne</label>
+                                <div class="col-sm-8">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
+                                        <select name="ticket[panne]" id="ticket_panne" class="form-control font_exo_2 input-md select2-single" required>
+                                            <option value="">--</option>
+                                            {% for key,item in fieldsOptions.listePanneWithCategory %}
+                                                <option class="{{ item.cat }}" value="{{ item.id }}">{{ key }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                {{ form_label(formAdd.comment) }}
+                                {{ form_errors(formAdd.comment) }}
+                                <div class="col-sm-10">
+                                    <div class="input-group select2-bootstrap-prepend">
+                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                        {{ form_widget(formAdd.comment) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-success" onclick="submit();">Créer</button>
+                    {#<div id="ember3428" class="ember-view btn-group dropup ticket_submit_buttons status_button">#}
+                        {#<button class="save btn btn-success btn-inverse" data-ember-action="3929">#}
+                            {#Envoyer comme <strong>En attente</strong>#}
+                        {#</button>#}
+                        {#<button data-toggle="dropdown" class="btn btn-success btn-inverse dropdown-toggle">#}
+                            {#<span class="caret"></span>#}
+                        {#</button>#}
+                        {#<ul id="ember3942" class="bg-success ember-view menu dropdown-menu pull-right">#}
+                            {#<li id="ember3945" class="ember-view new status _tooltip" disabled="false" title="Le ticket attend d'être affecté à un agent du service d'assistance." style="display: none;">Envoyer comme <strong>Nouveau</strong></li>#}
+                            {#<li id="ember3946" class="ember-view open status _tooltip" disabled="false" title="L'équipe du service d'assistance travaille sur ce ticket.">Envoyer comme <strong>Ouvert</strong></li>#}
+                            {#<li id="ember3947" class="ember-view pending status _tooltip" disabled="false" data-original-title="L'équipe du service d'assistance attend une réponse du demandeur.">Envoyer comme <strong>En attente EDF</strong></li>#}
+                            {#<li id="ember3948" class="ember-view hold status _tooltip" disabled="false" data-original-title="L'équipe du service d’assistance attend des informations d’un tiers.">Envoyer comme <strong>En pause Constructeur</strong></li>#}
+                            {#<li id="ember3949" class="ember-view solved status _tooltip" disabled="false" data-original-title="Le ticket a été considéré comme résolu.">Envoyer comme <strong>Résolu</strong></li>#}
+                        {#</ul>#}
+                    {#</div>#}
+                </div>
+                {{ form_rest(formAdd) }}
+            </form>
+        </div>
+    </div>
+</div>

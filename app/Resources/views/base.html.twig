@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>AramIAM - {% block title %}{% endblock %}</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/fontawesome/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/AdminLTE.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/app/skins/_all-skins.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/iCheck/flat/blue.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-select.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-datepicker.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/datatables/dataTables.bootstrap.min.css') }}" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Exo+2:400,200,900,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="{{ asset('css/app/aramiam.css') }}">
+    {% block stylesheets %}{% endblock %}
+    {% block stylesheetsAdd %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body class="hold-transition skin-blue sidebar-mini">
+<div class="wrapper">
+    <header class="main-header">
+        <a href="/" class="logo">
+            <span class="logo-mini font_exo_2"><b>P</b>edf</span>
+            <span class="logo-lg font_exo_2"><b>Proservia</b>EDF</span>
+        </a>
+        {% block nav %}{% include 'nav.html.twig' %} {% endblock %}
+    </header>
+    {% block slidebar %}{% include 'slidebar.html.twig' %} {% endblock %}
+    <div class="content-wrapper">
+        <section class="content-header font_exo_2">
+            <h1 class="font_exo_2" style="padding-bottom: 15px">
+                {% block title2%}{% endblock %}
+                <small class="font_exo_2">{% block title3%}{% endblock %}</small>
+            </h1>
+            <ol class="breadcrumb font_exo_2">
+                <li><a href="/"><i class="fa fa-dashboard"></i> Home</a></li>
+                <li class="active">{% block breadcrumb %} {% endblock %}</li>
+            </ol>
+        </section>
+        <section class="content">
+            <div class="row">
+                <section class="col-sm-12">
+                    {% block buttons %}{% include 'buttons.html.twig' %} {% endblock %}
+                </section>
+            </div>
+            <div class="row">
+                {% block body %}{% endblock %}
+                {% block mainform %}{% endblock %}
+                {% block footform %}{% endblock %}
+            </div>
+        </section>
+    </div>
+    <footer class="main-footer">
+        <div class="pull-right hidden-xs">
+            <b>Version</b> 0.9.9.315
+        </div>
+    </footer>
+    <div class="control-sidebar-bg"></div>
+</div>
+<script src="{{ asset('js/jquery/jquery-2.2.0.min.js') }}"></script>
+<script src="{{ asset('js/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap/bootstrap-select.min.js') }}"></script>
+<script src="{{ asset('js/jquery/jquery.dataTables.min.js') }}"></script>
+<script src="{{ asset('js/datatables/dataTables.bootstrap.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/app/app.min.js') }}"></script>
+<script src="{{ asset('js/app/demo.js') }}"></script>
+<script src="{{ asset('js/app/iam.js') }}"></script>
+<script src="{{ asset('js/select2/select2.full.js') }}"></script>
+<script src="{{ asset('js/select2/i18n/fr.js') }}"></script>
+
+{% block javascripts %}{% endblock %}
+</body>
+{% block javascriptsEnd %}{% endblock %}
+{% block javascriptsEndofEnd %}{% endblock %}
+</html>

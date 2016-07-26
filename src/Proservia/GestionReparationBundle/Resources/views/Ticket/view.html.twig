@@ -1,0 +1,165 @@
+{% extends 'AppBundle:Default:items.view.html.twig' %}
+    {% block title %} Liste des Tickets {% endblock %}
+    {% block title2 %} Divers {% endblock %}
+    {% block title3 %} Liste des Tickets {% endblock %}
+    {% block breadcrumb %} Liste des Tickets {% endblock %}
+    {% block corps_table_title %}
+        <th class="admin_cat_table_title">DSP(Etiquette)</th>
+        <th class="admin_cat_table_title">S/N</th>
+        <th class="admin_cat_table_title">Modèle</th>
+        <th class="admin_cat_table_title">Site</th>
+    {% endblock %}
+    {% block corps_table_cells %}
+        {% for item in all %}
+            <tr id="generalBtr" data-href="">
+                <td class="admin_cat_table_cell">{{ item.dsp }}</td>
+                <td class="admin_cat_table_cell">{{ item.serial }}</td>
+                <td class="admin_cat_table_cell">{{ item.product }}</td>
+                <td class="admin_cat_table_cell">{{ item.site }}</td>
+                <td class="admin_cat_table_cell_action">
+                    {% if item.isArchived == 0 %}
+                        <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxTicketEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
+                            <span class="glyphicon glyphicon-edit  btn-xs" aria-hidden="true"></span>
+                        </button>
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id}) }}" title="Supprimer {{ alert_text }}" data-confirm="Etes-vous certain de vouloir archiver {{ alert_text }} ?">
+                            <button type="button" class="btn btn-default  btn-xs" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-remove  btn-xs" aria-hidden="true"></span>
+                            </button>
+                        </a>
+                    {% endif %}
+                    {% if item.isArchived == 1 %}
+                        <a href="{{ path( remove_path , { 'itemDelete': item.id}) }}" title="Supprimer {{ alert_text }}" data-confirm="Etes-vous certain de vouloir rétablir {{ alert_text }} ?">
+                            <button type="button" class="btn btn-default  btn-xs" aria-label="Left Align">
+                                <span class="glyphicon glyphicon-refresh  btn-xs" aria-hidden="true"></span>
+                            </button>
+                        </a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    {% endblock %}
+
+    {% block modal_form %}
+
+        {% embed "@ProserviaGestionReparation/Ticket/add.body.html.twig"  %}
+        {% endembed %}
+
+
+        {% embed "@ProserviaGestionReparation/Ticket/edit.body.html.twig"  %}
+        {% endembed %}
+
+    {% endblock %}
+
+    {% block javascripts %}
+        <script src="{{ asset('js/bootstrap/bootstrap-datepicker.min.js') }}"></script>
+        <script src="{{ asset('js/bootstrap/locales/bootstrap-datepicker.fr.min.js') }}"></script>
+        <script src="{{ asset('js/select2/select2.full.js') }}"></script>
+        <script src="{{ asset('js/select2/i18n/fr.js') }}"></script>
+        <script src="{{ asset('js/jquery/jquery.chained.min.js') }}"></script>
+        <script>
+            $('.select2-single').select2({
+                theme: "bootstrap",
+                width: null,
+                containerCssClass: ':all:',
+                placeholder: "Choisir une option"
+            });
+        </script>
+        <script>
+            $('.select2-single-dsp').select2({
+                theme: "bootstrap",
+                width: null,
+                containerCssClass: ':all:',
+                tags: true,
+                placeholder: "Choisir une option"
+            });
+        </script>
+        <script>
+            $('.datepicker').datepicker({
+                format: "dd-mm-yyyy",
+                startDate: "-7d",
+                startView: 1,
+                todayBtn: "linked",
+                language: "fr",
+                orientation: "auto right",
+                daysOfWeekDisabled: "0,6",
+                daysOfWeekHighlighted: "1,2,3,4,5",
+                calendarWeeks: true,
+                autoclose: true,
+                todayHighlight: true
+            });
+        </script>
+        <script>
+            $('.monitor-dsp').change(function() {
+                var what = document.getElementById("ticket_dsp");
+                var valToCheck = what.options[what.selectedIndex].text;
+                urlajax ="/ajax/dsp_infos/get/" + valToCheck;
+                $.ajax({url:urlajax,success:function(result){
+                    var frm = $("#form-add");
+                    var i;
+                    for (i in result) {
+
+                        frm.find('[name="ticket[' + i + ']"]').val(result[i]);
+
+                        $('.select2-single').select2({
+                            theme: "bootstrap",
+                            width: null,
+                            containerCssClass: ':all:',
+                            placeholder: "Choisir une option"
+                        });
+                    }
+                }});
+            });
+        </script>
+        <script>
+            $("#ticket_panne").chained("#ticket_type_panne");
+        </script>
+        <script>
+            // Fonction de chargement Standard Edit
+            function ajaxTicketEdit(url, editItem)
+            {
+                urlajax ="/ajax/"+url+"/get/"+editItem;
+                $.ajax({url:urlajax,success:function(result){
+                    var frm = $("#form-edit");
+                    var i;
+                    for (i in result) {
+                        frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
+                        $('.select2-single').select2({
+                            theme: "bootstrap",
+                            width: null,
+                            containerCssClass: ':all:',
+                            placeholder: "Choisir une option"
+                        });
+                    }
+                    urlajax ="/ajax/ticket_events/get/"+editItem;
+                    $.ajax({url:urlajax,success:function(result){
+                        var textToAppend = '';
+                        for (i in result) {
+                            textToAppend += '<tr id="generalBtr" data-href="" title="' + result[i].commentaire + '">'+
+                                '<td class="admin_cat_table_cell">' + result[i].event + '</td>'+
+                                '<td class="admin_cat_table_cell">' + result[i].user + '</td>'+
+                                '<td class="admin_cat_table_cell">' + result[i].status + '</td>'+
+                                '<td class="admin_cat_table_cell">' + result[i].createdAt + '</td>'+
+                                '</tr>';
+                        }
+                        document.getElementById('events_table').innerHTML = textToAppend;
+                        $('#bootstrap-list-events').DataTable({
+                            "dom": '<".todofilter"><"top">rt<"bottom"><"clear">',
+                            "order": [[ 3, "desc" ]],
+                            bFilter: true,
+                            bInfo: false,
+                            bLengthChange:false,
+                            "pageLength": 13,
+                            "language": {
+                                "paginate": {
+                                    "previous": "Préc.",
+                                    "next": "Suiv."
+                                },
+                                "zeroRecords": "Pas de données à Afficher",
+                                "search": ""
+                            }
+                        });
+                    }});
+                }});
+            }
+        </script>
+    {% endblock %}

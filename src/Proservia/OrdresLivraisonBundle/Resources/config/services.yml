@@ -1,0 +1,66 @@
+parameters:
+    order.screen_order_manager.class: Proservia\OrdresLivraisonBundle\Services\Manager\ScreenOrderManager
+    order.entity.screen_order_manager.class: Proservia\OrdresLivraisonBundle\Entity\ScreenOrder
+    order.entityname.screen_order_manager.class: 'Proservia\OrdresLivraisonBundle\Entity\ScreenOrder'
+    order.argname.screen_order_manager.class: 'L''OL'
+
+    order.bureautique_order_manager.class: Proservia\OrdresLivraisonBundle\Services\Manager\BureautiqueOrderManager
+    order.entity.bureautique_order_manager.class: Proservia\OrdresLivraisonBundle\Entity\BureautiqueOrder
+    order.entityname.bureautique_order_manager.class: 'Proservia\OrdresLivraisonBundle\Entity\BureautiqueOrder'
+    order.argname.bureautique_order_manager.class: 'L''OL'
+
+    order.specifique_order_manager.class: Proservia\OrdresLivraisonBundle\Services\Manager\SpecifiqueOrderManager
+    order.entity.specifique_order_manager.class: Proservia\OrdresLivraisonBundle\Entity\SpecifiqueOrder
+    order.entityname.specifique_order_manager.class: 'Proservia\OrdresLivraisonBundle\Entity\SpecifiqueOrder'
+    order.argname.specifique_order_manager.class: 'L''OL'
+
+    order.abstract_generate_xls.class: Proservia\OrdresLivraisonBundle\Services\AbstractGenerateXls
+    order.generate_ecr_xls.class: Proservia\OrdresLivraisonBundle\Services\GenerateECRxls
+    order.generate_bur_xls.class: Proservia\OrdresLivraisonBundle\Services\GenerateBURxls
+    order.generate_spc_xls.class: Proservia\OrdresLivraisonBundle\Services\GenerateSPCxls
+
+
+services:
+    order.screen_order_manager:
+        class: '%order.screen_order_manager.class%'
+        parent: app.abstract_manager
+        arguments: ['@core.site_manager']
+        calls:
+        - [setEntity, ["%order.entity.screen_order_manager.class%"]]
+        - [setEntityName, ["%order.entityname.screen_order_manager.class%"]]
+        - [setArgname, ["%order.argname.screen_order_manager.class%"]]
+
+    order.bureautique_order_manager:
+        class: '%order.bureautique_order_manager.class%'
+        parent: app.abstract_manager
+        arguments: ['@core.site_manager']
+        calls:
+        - [setEntity, ["%order.entity.bureautique_order_manager.class%"]]
+        - [setEntityName, ["%order.entityname.bureautique_order_manager.class%"]]
+        - [setArgname, ["%order.argname.bureautique_order_manager.class%"]]
+
+    order.specifique_order_manager:
+        class: '%order.specifique_order_manager.class%'
+        parent: app.abstract_manager
+        arguments: ['@core.site_manager']
+        calls:
+        - [setEntity, ["%order.entity.specifique_order_manager.class%"]]
+        - [setEntityName, ["%order.entityname.specifique_order_manager.class%"]]
+        - [setArgname, ["%order.argname.specifique_order_manager.class%"]]
+
+    order.abstract_generate_xls:
+        class: '%order.abstract_generate_xls.class%'
+        abstract: true
+        arguments: ['@core.site_manager', '@core.contact_manager']
+
+    order.generate_ecr_xls:
+        class: '%order.generate_ecr_xls.class%'
+        parent: order.abstract_generate_xls
+
+    order.generate_bur_xls:
+        class: '%order.generate_bur_xls.class%'
+        parent: order.abstract_generate_xls
+
+    order.generate_spc_xls:
+        class: '%order.generate_spc_xls.class%'
+        parent: order.abstract_generate_xls

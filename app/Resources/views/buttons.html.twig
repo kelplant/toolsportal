@@ -1,0 +1,25 @@
+{% if panel == 'admin' %}
+    <div class="disabled" data-href="#" xmlns="http://www.w3.org/1999/html">
+        {% if entity != '' and entity != 'salesforce_profile' and entity != 'salesforce_groupe' and entity != 'salesforce_territory' and entity != 'active_directory_group' and entity != 'active_directory_organisation_unit' and entity != 'google_group' %}
+            {% if app.request.query.get('isArchived') is defined and app.request.query.get('isArchived') == 0 or app.request.query.get('isArchived') is not defined %}
+            <button type="button" class="btn btn-primary btn-success pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAdd" id="addForm">
+                <i class="fa fa-plus"></i> Nouveau
+            </button>
+            {% endif %}
+        {% endif %}
+        {% if entity == 'etiquette_list' %}
+            <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAddViaFile" id="addForm">
+                <i class="fa fa-plus"></i> Importer fichier</button>
+        {% endif %}
+
+
+        {% if entity != ''  %}
+        <div class="col-sm-2 pull-right">
+            <div class="input-group ">
+              <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                  <input type="text" name="q" id="global_filter" class="font_exo_2 form-control" placeholder="Rechercher...">
+            </div>
+        </div>
+        {% endif %}
+    </div>
+{% endif %}

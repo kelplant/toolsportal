@@ -1,0 +1,112 @@
+{% extends '::base.html.twig' %}
+    {% block stylesheets %}
+        <link href="{{ asset('css/datatables/jquery.dataTables.min.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('css/datatables/dataTables.bootstrap.min.css') }}" type="text/css" rel="stylesheet">
+        <link href="{{ asset('css/bootstrap/bootstrap-datepicker.min.css') }}" type="text/css" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('css/select2/select2.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/select2/select2-bootstrap.css') }}">
+    {% endblock %}
+    {% block stylesheetsAdd %}
+    {% endblock %}
+    {% block mainform %}
+        {% block modal_form %}
+        {% endblock %}
+        <section class="col-sm-12 connectedSortable">
+            <div class="nav-tabs-custom">
+                <div class="tab-content no-padding">
+                    <div class="form-group"></div>
+                    <div class="box box-primary">
+                        {% block box_header %}
+                        {% endblock %}
+                        <div class="box-body no-padding">
+                            <section class="content">
+                                <div class="row">
+                                    <div class="table-responsive">
+                                            <table class="table table-striped display" id="bootstrap-todo">
+                                                <thead>
+                                                    <tr>
+                                                        {% block corps_table_title %}{% endblock %}
+                                                        <th class="admin_cat_table_title">Actions</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {% block corps_table_cells %}{% endblock %}
+                                                </tbody>
+                                            </table>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    {% endblock %}
+    {% block footform %}
+
+    {% endblock %}
+{% block javascripts %}
+    <script src="{{ asset('js/bootstrap/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/locales/bootstrap-datepicker.fr.min.js') }}"></script>
+    <script src="{{ asset('js/select2/select2.full.js') }}"></script>
+    <script src="{{ asset('js/select2/i18n/fr.js') }}"></script>
+    <script src="{{ asset('js/jquery/jquery.chained.min.js') }}"></script>
+{% endblock %}
+{% block javascriptsEnd %}
+    <script>
+        $(document).ready(function(){
+            $('#bootstrap-todo').DataTable({
+                "dom": '<".todofilter"><"top"p>rt<"bottom"p><"clear">',
+                "order": [[ 0, "desc" ]],
+                bFilter: true,
+                bInfo: false,
+                bLengthChange:false,
+                "pageLength": 13,
+                "language": {
+                    "paginate": {
+                        "previous": "Préc.",
+                        "next": "Suiv."
+                    },
+                    "zeroRecords": "Pas de données à Afficher",
+                    "search": ""
+                }
+            });
+            $('#global_filter').on( 'keyup click', function () {
+                filterGlobal();
+            } );
+        });
+    </script>
+    {#Fonction de confirmation personalisée bootstrap#}
+    <script>
+        $(function() {
+            $('a[data-confirm]').click(function() {
+                var href = $(this).attr('href');
+
+                if (!$('#dataConfirmModal').length) {
+                    var confirmBox = '' +
+                            '<div id="dataConfirmModal" class="modal font_exo_2" role="dialog" aria-labelledby="dataConfirmLabel" aria-hidden="true">' +
+                            '<div class="modal-dialog font_exo_2">' +
+                            '<div class="modal-content font_exo_2">' +
+                            '<div class="modal-header font_exo_2">' +
+                            '<button type="button" class="close font_exo_2" data-dismiss="modal" aria-hidden="true">×</button>' +
+                            '<h3 id="dataConfirmLabel">Merci de confirmer</h3>' +
+                            '</div>' +
+                            '<div class="modal-body font_exo_2"></div>' +
+                            '<div class="modal-footer font_exo_2">' +
+                            '<button class="btn btn-success font_exo_2" data-dismiss="modal" aria-hidden="true">Non</button>' +
+                            '<a class="btn btn-danger font_exo_2" id="dataConfirmOK">Oui</a>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>' +
+                            '</div>';
+                    $('body').append(confirmBox);
+                }
+                $('#dataConfirmModal').find('.modal-body').text($(this).attr('data-confirm'));
+                $('#dataConfirmOK').attr('href', href);
+                $('#dataConfirmModal').modal({show:true});
+                return false;
+            });
+        });
+    </script>
+
+{% endblock %}
