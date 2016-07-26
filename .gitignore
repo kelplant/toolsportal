@@ -1,7 +1,6 @@
 /web/bundles/
 /app/config/parameters.yml
 /vendor/
-/bin/
 /.idea/
 /var/
 
