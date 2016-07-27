@@ -80,44 +80,46 @@ function processCsvFile(url) {
     var fileUpload = document.getElementById("fileUpload");
     var regex = /^([a-zA-Z0-9\s_\\.\-:])+(.csv|.txt)$/;
     if (regex.test(fileUpload.value.toLowerCase())) {
-        if (typeof (FileReader) != "undefined") {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-                var rows = e.target.result.split("\n");
-                var totalRows = rows.length - 1;
-                localStorage.setItem("totalRows", totalRows);
-                var successRows = 0;
-                var currentRow = 0;
-                for (var i = 1; i < rows.length; i++) {
-                    console.log(i);
-                    var cells = rows[i].replace(/[/]/g, "-5-8-3-").split(",");
-                    urlajax = url + cells;
-                    $.ajax({
-                        url: urlajax, success: function (result) {
-                            console.log("4");
-                            currentRow = parseInt(currentRow) + parseInt('1');
-                            var reglede3 = Math.round(parseInt(currentRow) * parseInt('100') / parseInt(totalRows)).toString();
-                            document.getElementById('progressBarBulkImport').innerHTML = reglede3+'%';
+        var reader = new FileReader();
+        reader.onload = function (e) {
+            var rows = e.target.result.split("\n");
+            console.log(rows);
+            var totalRows = rows.length - 1;
+            localStorage.setItem("totalRows", totalRows);
+            var successRows = 0;
+            var currentRow = 0;
+            for (var i = 1; i < rows.length; i++) {
+                console.log("line" + i);
+                var cells = rows[i].replace(/[/]/g, "-5-8-3-");
+                urlajax = url + cells;
+                $.ajax({
+                    url: urlajax,
+                    success: function (result) {
+                        console.log("etape 4");
+                        currentRow = parseInt(currentRow) + parseInt('1');
+                        var reglede3 = Math.round(parseInt(currentRow) * parseInt('100') / parseInt(totalRows)).toString();
+                        console.log(reglede3 + '%');
+                        if (reglede3 % 5 === 0 ) {
+                            document.getElementById('progressBarBulkImport').innerHTML = reglede3 + '%';
                             $('#progressBarBulkImport').width(reglede3+'%').attr('aria-valuenow', reglede3);
-                            successRows = parseInt(successRows) + parseInt(result);
-                            if (parseInt(currentRow) == parseInt(totalRows))
-                            {
-                                console.log("5");
-                                localStorage.setItem("successRows",successRows);
-                                $('#resultInsertFile').addClass('show').removeClass('hide');
-                                document.getElementById('resultInsertFile').innerHTML = localStorage.getItem("successRows")+"/"+localStorage.getItem("totalRows")+' correctement inséré(s)';
-                                $('#progressBarBulkImport').removeClass('active');
-                            }
                         }
-                    });
-                }
-            };
-            reader.readAsText(fileUpload.files[0]);
-        } else {
-            alert("This browser does not support HTML5.");
-        }
+                        successRows = parseInt(successRows) + parseInt(result);
+                        if (parseInt(currentRow) == parseInt(totalRows))
+                        {
+                            console.log("5");
+                            localStorage.setItem("successRows",successRows);
+                            $('#resultInsertFile').addClass('show').removeClass('hide');
+                            document.getElementById('resultInsertFile').innerHTML = localStorage.getItem("successRows")+"/"+localStorage.getItem("totalRows")+' correctement inséré(s)';
+                            $('#progressBarBulkImport').removeClass('active');
+                        }
+                    }
+                });
+            }
+        };
+        reader.readAsText(fileUpload.files[0]);
+
     } else {
-        alert("Please upload a valid CSV file.");
+        alert("Merci de charger un CSV valide");
     }
 }
 

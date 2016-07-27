@@ -50,7 +50,10 @@ class IndexControllerService extends AbstractControllerService
     public function ifFilterConvertProduct($product, $entity)
     {
         if ($entity == 'EtiquetteList' || $entity == 'Ticket') {
-            $product->setProduct($this->getConvertion('product', $product->getProduct(), 'core')->getName());
+            $productToLook = $this->getConvertion('product', $product->getProduct(), 'core');
+            if ($productToLook != null) {
+                $product->setProduct($productToLook->getName());
+            }
         }
         return null;
     }
