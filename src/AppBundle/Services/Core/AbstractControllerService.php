@@ -95,7 +95,7 @@ abstract class AbstractControllerService extends Controller
         $listeChoices['listePanneCategory']     = $this->get("repair.panne_category_manager")->createList();
         $listeChoices['listePanneWithCategory'] = $this->get("repair.panne_manager")->createListWithCat();
         $listeChoices['listePanne']             = $this->get("repair.panne_manager")->createList();
-        $listeChoices['listeDSP']               = $this->get("core.etiquettelist_manager")->createList();
+        //$listeChoices['listeDSP']               = $this->get("core.etiquettelist_manager")->createList();
 
         return $listeChoices;
     }

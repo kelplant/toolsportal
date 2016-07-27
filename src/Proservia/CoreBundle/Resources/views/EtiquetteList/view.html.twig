@@ -63,4 +63,29 @@
              containerCssClass: ':all:'
          });
      </script>
+
+     <script>
+         $(document).ready(function(){
+             $('#bootstrap-todo').DataTable({
+                 "dom": '<".todofilter"><"top"p>rt<"bottom"p><"clear">',
+                 "order": [[ 0, "desc" ]],
+                 bFilter: true,
+                 bInfo: false,
+                 bLengthChange:false,
+                 "pageLength": 13,
+                 "language": {
+                     "paginate": {
+                         "previous": "Préc.",
+                         "next": "Suiv."
+                     },
+                     "zeroRecords": "Pas de données à Afficher",
+                     "search": ""
+                 }
+             });
+             $('#global_filter').on( 'keyup click', function () {
+                 filterGlobal();
+             } );
+         });
+     </script>
+
  {% endblock %}

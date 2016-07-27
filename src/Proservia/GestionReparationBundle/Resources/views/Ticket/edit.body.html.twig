@@ -1,10 +1,10 @@
 <div class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
     <div class="modal-dialog modal-lg">
-        <div class="modal-content modal-lg">
+        <div class="modal-content modal-lg" >
             <form action="{{ path('form_exec_add_ticket') }}" method="post" class="form-horizontal" id="form-edit">
                 <div class="modal-header modal-lg">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <div class="col-sm-4 pull-right">
+                    <div class="col-sm-4 pull-right" id="statusDiv">
                         <div class="form-group" style="margin-bottom: 0px;padding-bottom: 0px">
                             {{ form_errors(formEdit.status) }}
                             <div class="col-sm-10 pull-right">
@@ -17,6 +17,12 @@
                     </div>
                     <h4 class="modal-title font_exo_2" id="myModalLabel">Ajout d'un Ticket Réparation</h4>
                 </div>
+                <div class="container-fluid col-sm-12 text-center hide" id="loading">
+                    <br><br><br><br><br>
+                    <button type="button" class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh spinning"></span>Loading... </button>
+                    <br><br><br><br><br>
+                </div>
+                <div id="mainEditModal">
                 <div class="modal-body modal-lg">
                     <div class="container-fluid">
                         <div class="col-sm-6">
@@ -29,12 +35,7 @@
                                 <div class="col-sm-8">
                                     <div class="input-group select2-bootstrap-prepend">
                                         <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        <select name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md select2-single monitor-dsp" required disabled>
-                                            <option value="">--</option>
-                                            {% for key,item in fieldsOptions.listeDSP %}
-                                                <option class="" value="{{ key }}">{{ key }}</option>
-                                            {% endfor %}
-                                        </select>
+                                        <input type="text" name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md" required disabled>
                                     </div>
                                 </div>
                             </div>
@@ -147,6 +148,7 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="modal-footer">
                     <div class="col-sm-12">
                         <div class="table-responsive">
@@ -166,6 +168,7 @@
                             </table>
                         </div>
                     </div>
+                </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
@@ -189,5 +192,6 @@
                 {{ form_rest(formEdit) }}
             </form>
         </div>
+
     </div>
 </div>

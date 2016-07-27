@@ -15,7 +15,7 @@ class ProductManager extends AbstractManager
      */
     public function createList()
     {
-        $datas      = $this->getRepository()->findBy(array('isArchived' => 0), array('name' => 'ASC'));
+        $datas      = $this->getRepository()->findBy(array(), array('name' => 'ASC'));
         $finalDatas = [];
         foreach ($datas as $data) {
             $finalDatas[$data->getName()] = $data->getId();

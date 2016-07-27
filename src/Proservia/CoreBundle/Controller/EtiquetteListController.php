@@ -8,6 +8,8 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class EtiquetteListController
@@ -107,5 +109,16 @@ class EtiquetteListController extends AbstractControllerService
     public function ajaxGetDSPINfos($itemLoad)
     {
         return new JsonResponse($this->get('core.etiquettelist_manager')->createArray($itemLoad));
+    }
+
+    /**
+     * @Route(path="/ajax/etiquette_list/get/full/", name="ajax_get_dsp_full_list")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function ajaxGetDSPList(Request $request)
+    {
+        $datas = $this->get('core.etiquettelist_manager')->getDSP($request->query->get('q'));
+
+        return  new JsonResponse($datas); // il n'y a plus qu'à convertir en JSON
     }
 }

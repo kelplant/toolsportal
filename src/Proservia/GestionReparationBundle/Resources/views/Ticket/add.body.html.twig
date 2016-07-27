@@ -28,13 +28,11 @@
                                 <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">DSP (Etiquette)</label>
                                 <div class="col-sm-8">
                                     <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        <select name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md select2-single monitor-dsp" required>
-                                            <option value="">--</option>
-                                            {% for key,item in fieldsOptions.listeDSP %}
-                                                <option class="" value="{{ key }}">{{ key }}</option>
-                                            {% endfor %}
+                                        <span class="input-group-addon"><i class="fa fa-search fa" aria-hidden="true"></i></span>
+                                        <select class="form-control font_exo_2 input-md ajax-select2 monitor_dsp" name="ticket[dsp]" id="ticket_dsp">
+                                            <option value="" selected="selected">--</option>
                                         </select>
+                                        {#<input type="text" name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md monitor-dsp" autocomplete="off" />#}
                                     </div>
                                 </div>
                             </div>

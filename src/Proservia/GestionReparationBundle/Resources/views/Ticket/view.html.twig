@@ -56,6 +56,7 @@
         <script src="{{ asset('js/select2/select2.full.js') }}"></script>
         <script src="{{ asset('js/select2/i18n/fr.js') }}"></script>
         <script src="{{ asset('js/jquery/jquery.chained.min.js') }}"></script>
+        <script src="{{ asset('js/easycomplet/jquery.easy-autocomplete.js') }}"></script>
         <script>
             $('.select2-single').select2({
                 theme: "bootstrap",
@@ -64,6 +65,46 @@
                 placeholder: "Choisir une option"
             });
         </script>
+        <script>
+            $('#ticket_dsp').select2({
+                theme: "bootstrap",
+                width:null,
+                placeholder: "Chercher un DSP",
+                minimumInputLength: 4,
+                ajax: { // instead of writing the function to execute the request we use Select2's convenient helper
+                    url: "/ajax/etiquette_list/get/full/",
+                    dataType: 'json',
+                    delay: 250,
+                    data: function (params) {
+                        return {
+                            q: params.term, // search term
+                            page: params.page
+                        };
+                    },
+                    processResults: function (data, params) {
+                        // parse the results into the format expected by Select2
+                        // since we are using custom formatting functions we do not need to
+                        // alter the remote JSON data, except to indicate that infinite
+                        // scrolling can be used
+                        params.page = params.page || 1;
+
+                        return {
+                            results: data.items,
+                            pagination: {
+                                more: (params.page * 30) < data.total_count
+                            }
+                        };
+                    },
+                    cache: true
+                },
+                //formatResult: escapeMarkup, // omitted for brevity, see the source of this page
+                //formatSelection: escapeMarkup,  // omitted for brevity, see the source of this page
+                //dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
+                escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
+
+            });
+        </script>
+
         <script>
             $('.select2-single-dsp').select2({
                 theme: "bootstrap",
@@ -89,7 +130,7 @@
             });
         </script>
         <script>
-            $('.monitor-dsp').change(function() {
+            $('.monitor_dsp').change(function() {
                 var what = document.getElementById("ticket_dsp");
                 var valToCheck = what.options[what.selectedIndex].text;
                 urlajax ="/ajax/dsp_infos/get/" + valToCheck;
@@ -117,6 +158,9 @@
             // Fonction de chargement Standard Edit
             function ajaxTicketEdit(url, editItem)
             {
+                $('#mainEditModal').addClass('hide').removeClass("show");
+                $('#statusDiv').addClass('hide').removeClass("show");
+                $('#loading').addClass('show').removeClass("hide");
                 urlajax ="/ajax/"+url+"/get/"+editItem;
                 $.ajax({url:urlajax,success:function(result){
                     var frm = $("#form-edit");
@@ -145,6 +189,7 @@
                         $('#bootstrap-list-events').DataTable({
                             "dom": '<".todofilter"><"top">rt<"bottom"><"clear">',
                             "order": [[ 3, "desc" ]],
+                            destroy: true,
                             bFilter: true,
                             bInfo: false,
                             bLengthChange:false,
@@ -158,6 +203,9 @@
                                 "search": ""
                             }
                         });
+                        $('#loading').addClass('hide').removeClass("show");
+                        $('#mainEditModal').addClass('show').removeClass("hide");
+                        $('#statusDiv').addClass('show').removeClass("hide");
                     }});
                 }});
             }
