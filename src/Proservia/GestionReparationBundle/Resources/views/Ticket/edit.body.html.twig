@@ -23,175 +23,231 @@
                     <br><br><br><br><br>
                 </div>
                 <div id="mainEditModal">
-                <div class="modal-body modal-lg">
-                    <div class="container-fluid">
-                        <div class="col-sm-6">
-                            <input type="hidden" name="formAction" value="add">
-                            {{ form_errors(formEdit) }}
-                            <input type="hidden" name="ticket[user]" id="ticket_user" value="{{ currentUserInfos.id }}">
-                            <input type="hidden" name="ticket[status]" id="ticket_status" value="Ouvert">
-                            <div class="form-group font_exo_2">
-                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">DSP (Etiquette)</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        <input type="text" name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md" required disabled>
+                    <div class="modal-body modal-lg">
+                        <div class="container-fluid">
+                            <div class="col-sm-6">
+                                <input type="hidden" name="formAction" value="add">
+                                {{ form_errors(formEdit) }}
+                                <input type="hidden" name="ticket[user]" id="ticket_user" value="{{ currentUserInfos.id }}">
+                                <input type="hidden" name="ticket[status]" id="ticket_status" value="Ouvert">
+                                <div class="form-group font_exo_2">
+                                    <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">DSP (Etiquette)</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                            <input type="text" name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md" required disabled>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group font_exo_2">
+                                    <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Produit</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                            <select name="ticket[product]" id="ticket_product" class="form-control font_exo_2 input-md select2-single" required disabled>
+                                                <option value="">--</option>
+                                                {% for key,item in fieldsOptions.listeProduct %}
+                                                    <option class="" value="{{ item }}">{{ key }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.buyMode) }}
+                                    {{ form_errors(formEdit.buyMode) }}
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                            {{ form_widget(formEdit.buyMode, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.endOfWarranty) }}
+                                    {{ form_errors(formEdit.endOfWarranty) }}
+                                    <div class="col-sm-8">
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
+                                            {{ form_widget(formEdit.endOfWarranty, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.typeWarranty) }}
+                                    {{ form_errors(formEdit.typeWarranty) }}
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                            {{ form_widget(formEdit.typeWarranty, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group font_exo_2">
-                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Produit</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        <select name="ticket[product]" id="ticket_product" class="form-control font_exo_2 input-md select2-single" required disabled>
-                                            <option value="">--</option>
-                                            {% for key,item in fieldsOptions.listeProduct %}
-                                                <option class="" value="{{ item }}">{{ key }}</option>
-                                            {% endfor %}
-                                        </select>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    {{ form_label(formEdit.serial) }}
+                                    {{ form_errors(formEdit.serial) }}
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
+                                            {{ form_widget(formEdit.serial, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    {{ form_label(formEdit.site) }}
+                                    {{ form_errors(formEdit.site) }}
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-map fa" aria-hidden="true"></i></span>
+                                            {{ form_widget(formEdit.site, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group font_exo_2">
+                                    <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Type Panne</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
+                                            <select name="ticket[type_panne]" id="ticket_type_panne" class="form-control font_exo_2 input-md select2-single" required disabled>
+                                                <option value="">--</option>
+                                                {% for key,item in fieldsOptions.listePanneCategory %}
+                                                    <option value="{{ item }}">{{ key }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group font_exo_2">
+                                    <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Panne</label>
+                                    <div class="col-sm-8">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
+                                            <select name="ticket[panne]" id="ticket_panne" class="form-control font_exo_2 input-md select2-single" required disabled>
+                                                <option value="">--</option>
+                                                {% for key,item in fieldsOptions.listePanneWithCategory %}
+                                                    <option class="{{ item.cat }}" value="{{ item.id }}">{{ key }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.buyMode) }}
-                                {{ form_errors(formEdit.buyMode) }}
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        {{ form_widget(formEdit.buyMode, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    {{ form_label(formEdit.comment) }}
+                                    {{ form_errors(formEdit.comment) }}
+                                    <div class="col-sm-10">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                            {{ form_widget(formEdit.comment, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.endOfWarranty) }}
-                                {{ form_errors(formEdit.endOfWarranty) }}
-                                <div class="col-sm-8">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        {{ form_widget(formEdit.endOfWarranty, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.typeWarranty) }}
-                                {{ form_errors(formEdit.typeWarranty) }}
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        {{ form_widget(formEdit.typeWarranty, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
-                                {{ form_label(formEdit.serial) }}
-                                {{ form_errors(formEdit.serial) }}
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
-                                        {{ form_widget(formEdit.serial, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                {{ form_label(formEdit.site) }}
-                                {{ form_errors(formEdit.site) }}
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
-                                        {{ form_widget(formEdit.site) }}
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group font_exo_2">
-                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Type Panne</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
-                                        <select name="ticket[type_panne]" id="ticket_type_panne" class="form-control font_exo_2 input-md select2-single" required>
-                                            <option value="">--</option>
-                                            {% for key,item in fieldsOptions.listePanneCategory %}
-                                                <option value="{{ item }}">{{ key }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group font_exo_2">
-                                <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Panne</label>
-                                <div class="col-sm-8">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
-                                        <select name="ticket[panne]" id="ticket_panne" class="form-control font_exo_2 input-md select2-single" required>
-                                            <option value="">--</option>
-                                            {% for key,item in fieldsOptions.listePanneWithCategory %}
-                                                <option class="{{ item.cat }}" value="{{ item.id }}">{{ key }}</option>
-                                            {% endfor %}
-                                        </select>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-sm-12">
-                            <div class="form-group">
-                                {{ form_label(formEdit.comment) }}
-                                {{ form_errors(formEdit.comment) }}
-                                <div class="col-sm-10">
-                                    <div class="input-group select2-bootstrap-prepend">
-                                        <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                        {{ form_widget(formEdit.comment) }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <div class="col-sm-12">
-                        <div class="table-responsive">
-                            <table class="table table-striped display" id="bootstrap-list-events" style="margin: 0px;width: 100%">
-                                <thead>
-                                    <tr>
-                                        <th class="admin_cat_table_title">Event</th>
-                                        <th class="admin_cat_table_title">Auteur</th>
-                                        <th class="admin_cat_table_title">Status</th>
-                                        <th class="admin_cat_table_title">Date</th>
-                                    </tr>
-                                </thead>
-
-                                <tbody id="events_table">
-
-                                </tbody>
-                            </table>
                         </div>
                     </div>
-                </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
-                    <button type="button" class="btn btn-success" onclick="submit();">Sauvegarder</button>
-                    {#<div id="ember3428" class="ember-view btn-group dropup ticket_submit_buttons status_button">#}
-                    {#<button class="save btn btn-success btn-inverse" data-ember-action="3929">#}
-                    {#Envoyer comme <strong>En attente</strong>#}
-                    {#</button>#}
-                    {#<button data-toggle="dropdown" class="btn btn-success btn-inverse dropdown-toggle">#}
-                    {#<span class="caret"></span>#}
-                    {#</button>#}
-                    {#<ul id="ember3942" class="bg-success ember-view menu dropdown-menu pull-right">#}
-                    {#<li id="ember3945" class="ember-view new status _tooltip" disabled="false" title="Le ticket attend d'être affecté à un agent du service d'assistance." style="display: none;">Envoyer comme <strong>Nouveau</strong></li>#}
-                    {#<li id="ember3946" class="ember-view open status _tooltip" disabled="false" title="L'équipe du service d'assistance travaille sur ce ticket.">Envoyer comme <strong>Ouvert</strong></li>#}
-                    {#<li id="ember3947" class="ember-view pending status _tooltip" disabled="false" data-original-title="L'équipe du service d'assistance attend une réponse du demandeur.">Envoyer comme <strong>En attente EDF</strong></li>#}
-                    {#<li id="ember3948" class="ember-view hold status _tooltip" disabled="false" data-original-title="L'équipe du service d’assistance attend des informations d’un tiers.">Envoyer comme <strong>En pause Constructeur</strong></li>#}
-                    {#<li id="ember3949" class="ember-view solved status _tooltip" disabled="false" data-original-title="Le ticket a été considéré comme résolu.">Envoyer comme <strong>Résolu</strong></li>#}
-                    {#</ul>#}
-                    {#</div>#}
-                </div>
-                {{ form_rest(formEdit) }}
             </form>
-        </div>
+            <div class="modal-footer">
+                <ul class="nav nav-tabs">
+                    <li role="presentation" class="active ticket_view_menu" id="ticket_actions" onclick="ticketMenu(this.id);"><a href="#">Actions</a></li>
+                    <li role="presentation" class="ticket_view_menu" id="ticket_historique" onclick="ticketMenu(this.id);"><a href="#">Historique</a></li>
+                </ul>
 
+                <div class="col-sm-12">
+                    <div class="container-fluid ticket_middle_block" id="ticket_actions_block">
+                        <form action="" method="post" class="form-horizontal" id="form-events">
+                            <div class="row" style="margin-top: 20px">
+                                <div class="form-group">
+                                    <label for="ticketEvent_action" class="col-sm-2 control-label align_right font_exo_2">Action</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-database fa" aria-hidden="true"></i></span>
+                                            <select class="form-control font_exo_2 input-md select2-single align_left" name="ticketEvent[action]" id="ticketEvent_action">
+                                                <option value="">--</option>
+                                                <option value="changePart">Changement d'une pièce</option>
+                                                <option value="intervCons">Intervention Constructeur demandée</option>
+                                                <option value="desassembage">Demande Désassemblage</option>
+                                                <option value="val_devis">Demande Validation de Devis</option>
+                                                <option value="broker">Envoi Broker</option>
+                                                <option value="repConfirm">Réparation confirmée</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <label for="ticketEvent_status" class="col-sm-2 control-label align_right font_exo_2">Nouveau Status</label>
+                                    <div class="col-sm-4">
+                                        <div class="input-group select2-bootstrap-prepend">
+                                            <span class="input-group-addon"><i class="fa fa-database fa" aria-hidden="true"></i></span>
+                                            <select class="form-control font_exo_2 input-md select2-single align_left" name="ticketEvent[status]" id="ticketEvent_status">
+                                                <option class="changePart" value="Ouvert">Ouvert</option>
+                                                <option class="desassembage val_devis" value="En Attente Client">En Attente Client</option>
+                                                <option class="desassembage val_devis intervCons" value="En Attente Constructeur">En Attente Constructeur</option>
+                                                <option class="repConfirm broker" value="Résolu">Résolu</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="ticketEvent_comment" class="col-sm-2 control-label align_right font_exo_2">Pièce Jointe</label>
+                                    <div class="col-sm-10">
+
+                                            <input type="file" class="form-control file" name="ticketEvent[file]" id="ticketEvent_file" multiple data-show-upload="true" data-show-caption="true">
+
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="form-group">
+                                    <label for="ticketEvent_comment" class="col-sm-2 control-label align_right font_exo_2">Commentaire</label>
+                                    <div class="col-sm-8">
+                                        <textarea width="100%" class="form-control font_exo_2 input-md" name="ticketEvent[comment]" id="ticketEvent_comment"></textarea>
+                                    </div>
+                                    <button type="button" class="btn btn-success" onclick="submit();" style="margin-right: 35px;margin-top: 10px">Ajouter</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div class="table-responsive ticket_middle_block hide" id="ticket_historique_block">
+                        <table class="table table-striped display" id="bootstrap-list-events" style="margin: 0px;width: 100%">
+                            <thead>
+                            <tr>
+                                <th class="admin_cat_table_title">Event</th>
+                                <th class="admin_cat_table_title">Auteur</th>
+                                <th class="admin_cat_table_title">Status</th>
+                                <th class="admin_cat_table_title">Date</th>
+                            </tr>
+                            </thead>
+                            <tbody id="events_table">
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+            {#<div id="ember3428" class="ember-view btn-group dropup ticket_submit_buttons status_button">#}
+            {#<button class="save btn btn-success btn-inverse" data-ember-action="3929">#}
+            {#Envoyer comme <strong>En attente</strong>#}
+            {#</button>#}
+            {#<button data-toggle="dropdown" class="btn btn-success btn-inverse dropdown-toggle">#}
+            {#<span class="caret"></span>#}
+            {#</button>#}
+            {#<ul id="ember3942" class="bg-success ember-view menu dropdown-menu pull-right">#}
+            {#<li id="ember3945" class="ember-view new status _tooltip" disabled="false" title="Le ticket attend d'être affecté à un agent du service d'assistance." style="display: none;">Envoyer comme <strong>Nouveau</strong></li>#}
+            {#<li id="ember3946" class="ember-view open status _tooltip" disabled="false" title="L'équipe du service d'assistance travaille sur ce ticket.">Envoyer comme <strong>Ouvert</strong></li>#}
+            {#<li id="ember3947" class="ember-view pending status _tooltip" disabled="false" data-original-title="L'équipe du service d'assistance attend une réponse du demandeur.">Envoyer comme <strong>En attente EDF</strong></li>#}
+            {#<li id="ember3948" class="ember-view hold status _tooltip" disabled="false" data-original-title="L'équipe du service d’assistance attend des informations d’un tiers.">Envoyer comme <strong>En pause Constructeur</strong></li>#}
+            {#<li id="ember3949" class="ember-view solved status _tooltip" disabled="false" data-original-title="Le ticket a été considéré comme résolu.">Envoyer comme <strong>Résolu</strong></li>#}
+            {#</ul>#}
+            {#</div>#}
+        </div>
     </div>
+</div>
 </div>

@@ -1,9 +1,13 @@
 {% extends 'AppBundle:Default:items.view.html.twig' %}
+    {% block stylesheetsAdd %}
+        <link href="{{ asset('css/bootstrap/fileinput.css') }}" media="all" rel="stylesheet" type="text/css" />
+    {% endblock %}
     {% block title %} Liste des Tickets {% endblock %}
     {% block title2 %} Divers {% endblock %}
     {% block title3 %} Liste des Tickets {% endblock %}
     {% block breadcrumb %} Liste des Tickets {% endblock %}
     {% block corps_table_title %}
+        <th class="admin_cat_table_title">N° Ticket</th>
         <th class="admin_cat_table_title">DSP(Etiquette)</th>
         <th class="admin_cat_table_title">S/N</th>
         <th class="admin_cat_table_title">Modèle</th>
@@ -12,6 +16,7 @@
     {% block corps_table_cells %}
         {% for item in all %}
             <tr id="generalBtr" data-href="">
+                <td class="admin_cat_table_cell">{{ item.id }}</td>
                 <td class="admin_cat_table_cell">{{ item.dsp }}</td>
                 <td class="admin_cat_table_cell">{{ item.serial }}</td>
                 <td class="admin_cat_table_cell">{{ item.product }}</td>
@@ -56,7 +61,16 @@
         <script src="{{ asset('js/select2/select2.full.js') }}"></script>
         <script src="{{ asset('js/select2/i18n/fr.js') }}"></script>
         <script src="{{ asset('js/jquery/jquery.chained.min.js') }}"></script>
-        <script src="{{ asset('js/easycomplet/jquery.easy-autocomplete.js') }}"></script>
+        <script src="{{ asset('js/canvas-to-blob.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/sortable.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/purify.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/bootstrap/fileinput.js') }}"></script>
+        <script src="{{ asset('js/bootstrap/theme.js') }}"></script>
+        <script src="{{ asset('js/bootstrap/fileinput-fr.js') }}"></script>
+
+        <script>
+            $("#ticketEvent_file").fileinput();
+        </script>
         <script>
             $('.select2-single').select2({
                 theme: "bootstrap",
@@ -101,7 +115,6 @@
                 //formatSelection: escapeMarkup,  // omitted for brevity, see the source of this page
                 //dropdownCssClass: "bigdrop", // apply css that makes the dropdown taller
                 escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
-
             });
         </script>
 
@@ -138,9 +151,7 @@
                     var frm = $("#form-add");
                     var i;
                     for (i in result) {
-
                         frm.find('[name="ticket[' + i + ']"]').val(result[i]);
-
                         $('.select2-single').select2({
                             theme: "bootstrap",
                             width: null,
@@ -153,6 +164,7 @@
         </script>
         <script>
             $("#ticket_panne").chained("#ticket_type_panne");
+            $("#ticketEvent_status").chained("#ticketEvent_action");
         </script>
         <script>
             // Fonction de chargement Standard Edit
@@ -163,6 +175,10 @@
                 $('#loading').addClass('show').removeClass("hide");
                 urlajax ="/ajax/"+url+"/get/"+editItem;
                 $.ajax({url:urlajax,success:function(result){
+                    var frm_event = $("#form-events");
+                    frm_event.find('[name="ticketEvent[status]"]').val(result.status);
+                    frm_event.find('[name="ticketEvent[comment]"]').val("");
+                    frm_event.find('[name="ticketEvent[action]"]').val("");
                     var frm = $("#form-edit");
                     var i;
                     for (i in result) {
