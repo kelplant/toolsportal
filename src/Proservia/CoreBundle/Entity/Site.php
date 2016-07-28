@@ -29,6 +29,11 @@ class Site
     /** @var string
      * @ORM\Column(type="string", length=100, nullable=true)
      */
+    protected $publicName;
+
+    /** @var string
+     * @ORM\Column(type="string", length=100, nullable=true)
+     */
     protected $adresse;
 
     /** @var string
@@ -136,6 +141,22 @@ class Site
     {
         $this->shortName = $shortName;
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPublicName()
+    {
+        return $this->publicName;
+    }
+
+    /**
+     * @param string $publicName
+     */
+    public function setPublicName($publicName)
+    {
+        $this->publicName = $publicName;
     }
 
     /**

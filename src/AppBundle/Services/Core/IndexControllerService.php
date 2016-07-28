@@ -11,7 +11,7 @@ class IndexControllerService extends AbstractControllerService
     public function ifFilterConvertSite($site, $entity)
     {
         if ($entity == 'ScreenOrder' || $entity == 'BureautiqueOrder' || $entity == 'SpecifiqueOrder' || $entity == 'Ticket') {
-            return $site->setSite($this->getConvertion('site', $site->getSite(), 'core')->getShortName());
+            return $site->setSite($this->getConvertion('site', $site->getSite(), 'core')->getPublicName());
         }
         return null;
     }

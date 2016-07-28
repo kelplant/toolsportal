@@ -10,5 +10,16 @@ use Proservia\CoreBundle\Entity\Site;
  */
 class SiteManager extends AbstractManager
 {
-
+    /**
+     * @return array
+     */
+    public function createList()
+    {
+        $datas      = $this->getRepository()->findAll();
+        $finalDatas = [];
+        foreach ($datas as $data) {
+            $finalDatas[$data->getPublicName()] = $data->getId();
+        }
+        return $finalDatas;
+    }
 }

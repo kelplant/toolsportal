@@ -7,7 +7,7 @@ parameters:
     repair.ticket_events_manager.class: Proservia\GestionReparationBundle\Services\Manager\TicketEventsManager
     repair.entity.ticket_events_manager.class: Proservia\GestionReparationBundle\Entity\TicketEvents
     repair.entityname.ticket_events_manager.class: 'Proservia\GestionReparationBundle\Entity\TicketEvents'
-    repair.argname.ticket_events_manager.class: 'Le Ticket'
+    repair.argname.ticket_events_manager.class: 'L''action'
 
     repair.panne_manager.class: Proservia\GestionReparationBundle\Services\Manager\PanneManager
     repair.entity.panne_manager.class: Proservia\GestionReparationBundle\Entity\Panne
@@ -19,6 +19,10 @@ parameters:
     repair.entityname.panne_category_manager.class: 'Proservia\GestionReparationBundle\Entity\PanneCategory'
     repair.argname.panne_category_manager.class: 'Le Ticket'
 
+    repair.ticket_event_file_manager.class: Proservia\GestionReparationBundle\Services\Manager\TicketEventFileManager
+    repair.entity.ticket_event_file_manager.class: Proservia\GestionReparationBundle\Entity\TicketEventFile
+    repair.entityname.ticket_event_file_manager.class: 'Proservia\GestionReparationBundle\Entity\TicketEventFile'
+    repair.argname.ticket_event_file_manager.class: 'Le fichier'
 
 services:
     repair.ticket_manager:
@@ -52,3 +56,11 @@ services:
         - [setEntity, ["%repair.entity.panne_category_manager.class%"]]
         - [setEntityName, ["%repair.entityname.panne_category_manager.class%"]]
         - [setArgname, ["%repair.argname.panne_category_manager.class%"]]
+
+    repair.ticket_event_file_manager:
+        class: '%repair.ticket_event_file_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%repair.entity.ticket_event_file_manager.class%"]]
+        - [setEntityName, ["%repair.entityname.ticket_event_file_manager.class%"]]
+        - [setArgname, ["%repair.argname.ticket_event_file_manager.class%"]]

@@ -9,6 +9,8 @@
     {% block corps_table_title %}
         <th class="admin_cat_table_title">N° Ticket</th>
         <th class="admin_cat_table_title">DSP(Etiquette)</th>
+        <th class="admin_cat_table_title">Date Création</th>
+        <th class="admin_cat_table_title">Status</th>
         <th class="admin_cat_table_title">S/N</th>
         <th class="admin_cat_table_title">Modèle</th>
         <th class="admin_cat_table_title">Site</th>
@@ -18,6 +20,8 @@
             <tr id="generalBtr" data-href="">
                 <td class="admin_cat_table_cell">{{ item.id }}</td>
                 <td class="admin_cat_table_cell">{{ item.dsp }}</td>
+                <td class="admin_cat_table_cell">{{ item.createdAt|date("d-m-Y") }}</td>
+                <td class="admin_cat_table_cell">{{ item.status }}</td>
                 <td class="admin_cat_table_cell">{{ item.serial }}</td>
                 <td class="admin_cat_table_cell">{{ item.product }}</td>
                 <td class="admin_cat_table_cell">{{ item.site }}</td>
@@ -177,8 +181,10 @@
                 $.ajax({url:urlajax,success:function(result){
                     var frm_event = $("#form-events");
                     frm_event.find('[name="ticketEvent[status]"]').val(result.status);
+                    frm_event.find('[name="ticketEvent[ticketId]"]').val(result.id);
                     frm_event.find('[name="ticketEvent[comment]"]').val("");
                     frm_event.find('[name="ticketEvent[action]"]').val("");
+                    frm_event.find('[name="ticketEvent[file]"]').val("");
                     var frm = $("#form-edit");
                     var i;
                     for (i in result) {
@@ -191,15 +197,32 @@
                         });
                     }
                     urlajax ="/ajax/ticket_events/get/"+editItem;
-                    $.ajax({url:urlajax,success:function(result){
+                    $.ajax({url:urlajax,success:function(result2){
                         var textToAppend = '';
-                        for (i in result) {
-                            textToAppend += '<tr id="generalBtr" data-href="" title="' + result[i].commentaire + '">'+
-                                '<td class="admin_cat_table_cell">' + result[i].event + '</td>'+
-                                '<td class="admin_cat_table_cell">' + result[i].user + '</td>'+
-                                '<td class="admin_cat_table_cell">' + result[i].status + '</td>'+
-                                '<td class="admin_cat_table_cell">' + result[i].createdAt + '</td>'+
-                                '</tr>';
+                        var h;
+                        for (h in result2) {
+                            textToAppend += '<tr id="generalBtr" data-href="" title="' + result2[h].commentaire + '">'+
+                                '<td class="admin_cat_table_cell">' + result2[h].event + '</td>'+
+                                '<td class="admin_cat_table_cell">' + result2[h].user + '</td>'+
+                                '<td class="admin_cat_table_cell">' + result2[h].status + '</td>'+
+                                '<td class="admin_cat_table_cell">' + result2[h].createdAt + '</td>';
+                            textToAppend += '<td class="admin_cat_table_cell">';
+                                if(result2[h].file == true) {
+
+                                    urlajax ="/ajax/ticket_event_file/get/" + result2[h].id;
+                                    $.ajax({url:urlajax,
+                                        async:false,
+                                        success:function(result3) {
+                                        var k;
+                                        for (k in result3) {
+                                            textToAppend += '<a href="/web/uploaded_files/' + result.id +'/'+ result3[k].stockFileName +'/' + result3[k].originalFileName +'">' +
+                                                    result3[k].originalFileName +
+                                            '</a>';
+                                        }
+
+                                    }});
+                                }
+                            textToAppend += '</td>'+ '</tr>';
                         }
                         document.getElementById('events_table').innerHTML = textToAppend;
                         $('#bootstrap-list-events').DataTable({

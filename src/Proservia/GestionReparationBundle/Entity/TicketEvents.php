@@ -42,6 +42,12 @@ class TicketEvents
     protected $user;
 
     /**
+     * @var boolean
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    protected $file;
+
+    /**
      * @var string
      * @ORM\Column(type="integer", length=1, nullable=true, options={"default":0})
      */
@@ -153,6 +159,22 @@ class TicketEvents
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param boolean $file
+     */
+    public function setFile($file)
+    {
+        $this->file = $file;
     }
 
     /**

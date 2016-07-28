@@ -31,9 +31,10 @@ class TicketEventsManager extends AbstractManager
             $itemArray['user']        = $item->getUser();
             $itemArray['event']       = $item->getEvent();
             $itemArray['ticketId']    = $item->getTicketId();
+            $itemArray['file']        = $item->getFile();
             $itemArray['status']      = $item->getStatus();
             $itemArray['commentaire'] = $item->getCommentaire();
-            $itemArray['createdAt']   = $item->getCreatedAt()->format("d-m-Y");
+            $itemArray['createdAt']   = $item->getCreatedAt()->format("d-m-Y H:m:s");
 
             $finalTab[] = $itemArray;
         }

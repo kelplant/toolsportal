@@ -10,7 +10,7 @@
                             <div class="col-sm-10 pull-right">
                                 <div class="input-group select2-bootstrap-prepend">
                                     <span class="input-group-addon"><i class="fa fa-database fa" aria-hidden="true"></i></span>
-                                    {{ form_widget(formEdit.status, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                    <input type="text" name="ticket[status]" id="ticket_status" class="form-control font_exo_2 input-md" disabled>
                                 </div>
                             </div>
                         </div>
@@ -34,8 +34,8 @@
                                     <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">DSP (Etiquette)</label>
                                     <div class="col-sm-8">
                                         <div class="input-group select2-bootstrap-prepend">
-                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                            <input type="text" name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md" required disabled>
+                                            <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
+                                            <input type="text" name="ticket[dsp]" id="ticket_dsp" class="form-control font_exo_2 input-md" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -43,13 +43,8 @@
                                     <label for="windows_category_product" class="col-sm-4 control-label align_right font_exo_2">Produit</label>
                                     <div class="col-sm-8">
                                         <div class="input-group select2-bootstrap-prepend">
-                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                            <select name="ticket[product]" id="ticket_product" class="form-control font_exo_2 input-md select2-single" required disabled>
-                                                <option value="">--</option>
-                                                {% for key,item in fieldsOptions.listeProduct %}
-                                                    <option class="" value="{{ item }}">{{ key }}</option>
-                                                {% endfor %}
-                                            </select>
+                                                <span class="input-group-addon"><i class="fa fa-product-hunt fa" aria-hidden="true"></i></span>
+                                                <input type="text" name="ticket[product]" id="ticket_product" class="form-control font_exo_2 input-md" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -58,8 +53,8 @@
                                     {{ form_errors(formEdit.buyMode) }}
                                     <div class="col-sm-8">
                                         <div class="input-group select2-bootstrap-prepend">
-                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                            {{ form_widget(formEdit.buyMode, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                            <span class="input-group-addon"><i class="fa fa-dollar fa" aria-hidden="true"></i></span>
+                                            <input type="text" name="ticket[buyMode]" id="ticket_buyMode" class="form-control font_exo_2 input-md" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -69,7 +64,7 @@
                                     <div class="col-sm-8">
                                         <div class="input-group">
                                             <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
-                                            {{ form_widget(formEdit.endOfWarranty, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                            <input type="text" name="ticket[endOfWarranty]" id="ticket_endOfWarranty" class="form-control font_exo_2 input-md" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -79,7 +74,7 @@
                                     <div class="col-sm-8">
                                         <div class="input-group select2-bootstrap-prepend">
                                             <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                            {{ form_widget(formEdit.typeWarranty, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                            <input type="text" name="ticket[typeWarranty]" id="ticket_typeWarranty" class="form-control font_exo_2 input-md" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +86,7 @@
                                     <div class="col-sm-8">
                                         <div class="input-group select2-bootstrap-prepend">
                                             <span class="input-group-addon"><i class="fa fa-barcode fa" aria-hidden="true"></i></span>
-                                            {{ form_widget(formEdit.serial, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
+                                            <input type="text" name="ticket[serial]" id="ticket_serial" class="form-control font_exo_2 input-md" disabled>
                                         </div>
                                     </div>
                                 </div>
@@ -110,7 +105,7 @@
                                     <div class="col-sm-8">
                                         <div class="input-group select2-bootstrap-prepend">
                                             <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
-                                            <select name="ticket[type_panne]" id="ticket_type_panne" class="form-control font_exo_2 input-md select2-single" required disabled>
+                                            <select name="ticket[type_panne]" id="ticket_type_panne" class="form-control font_exo_2 input-md select2-single" disabled>
                                                 <option value="">--</option>
                                                 {% for key,item in fieldsOptions.listePanneCategory %}
                                                     <option value="{{ item }}">{{ key }}</option>
@@ -124,7 +119,7 @@
                                     <div class="col-sm-8">
                                         <div class="input-group select2-bootstrap-prepend">
                                             <span class="input-group-addon"><i class="fa fa-wrench fa" aria-hidden="true"></i></span>
-                                            <select name="ticket[panne]" id="ticket_panne" class="form-control font_exo_2 input-md select2-single" required disabled>
+                                            <select name="ticket[panne]" id="ticket_panne" class="form-control font_exo_2 input-md select2-single" disabled>
                                                 <option value="">--</option>
                                                 {% for key,item in fieldsOptions.listePanneWithCategory %}
                                                     <option class="{{ item.cat }}" value="{{ item.id }}">{{ key }}</option>
@@ -140,7 +135,7 @@
                                     {{ form_errors(formEdit.comment) }}
                                     <div class="col-sm-10">
                                         <div class="input-group select2-bootstrap-prepend">
-                                            <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                            <span class="input-group-addon"><i class="fa fa-commenting fa" aria-hidden="true"></i></span>
                                             {{ form_widget(formEdit.comment, {'attr': {'readonly': 'readonly','disabled':'disabled' }}) }}
                                         </div>
                                     </div>
@@ -157,21 +152,23 @@
 
                 <div class="col-sm-12">
                     <div class="container-fluid ticket_middle_block" id="ticket_actions_block">
-                        <form action="" method="post" class="form-horizontal" id="form-events">
+                        <form action="{{ path('form_exec_add_ticket_event') }}" method="post" class="form-horizontal" id="form-events" enctype="multipart/form-data">
+                            <input type="hidden" name="ticketEvent[ticketId]" id="ticketEvent_ticketId">
+                            {{ form_widget(formEdit._token) }}
                             <div class="row" style="margin-top: 20px">
                                 <div class="form-group">
                                     <label for="ticketEvent_action" class="col-sm-2 control-label align_right font_exo_2">Action</label>
                                     <div class="col-sm-4">
                                         <div class="input-group select2-bootstrap-prepend">
                                             <span class="input-group-addon"><i class="fa fa-database fa" aria-hidden="true"></i></span>
-                                            <select class="form-control font_exo_2 input-md select2-single align_left" name="ticketEvent[action]" id="ticketEvent_action">
+                                            <select class="form-control font_exo_2 input-md select2-single align_left" name="ticketEvent[action]" id="ticketEvent_action" required>
                                                 <option value="">--</option>
-                                                <option value="changePart">Changement d'une pièce</option>
-                                                <option value="intervCons">Intervention Constructeur demandée</option>
-                                                <option value="desassembage">Demande Désassemblage</option>
-                                                <option value="val_devis">Demande Validation de Devis</option>
-                                                <option value="broker">Envoi Broker</option>
-                                                <option value="repConfirm">Réparation confirmée</option>
+                                                <option value="Changement_d'une_pièce">Changement d'une pièce</option>
+                                                <option value="Intervention_Constructeur_demandée">Intervention Constructeur demandée</option>
+                                                <option value="Demande_Désassemblage">Demande Désassemblage</option>
+                                                <option value="Demande_Validation_de_Devis">Demande Validation de Devis</option>
+                                                <option value="Envoi_Broker">Envoi Broker</option>
+                                                <option value="Réparation_confirmée">Réparation confirmée</option>
                                             </select>
                                         </div>
                                     </div>
@@ -179,11 +176,11 @@
                                     <div class="col-sm-4">
                                         <div class="input-group select2-bootstrap-prepend">
                                             <span class="input-group-addon"><i class="fa fa-database fa" aria-hidden="true"></i></span>
-                                            <select class="form-control font_exo_2 input-md select2-single align_left" name="ticketEvent[status]" id="ticketEvent_status">
-                                                <option class="changePart" value="Ouvert">Ouvert</option>
-                                                <option class="desassembage val_devis" value="En Attente Client">En Attente Client</option>
-                                                <option class="desassembage val_devis intervCons" value="En Attente Constructeur">En Attente Constructeur</option>
-                                                <option class="repConfirm broker" value="Résolu">Résolu</option>
+                                            <select class="form-control font_exo_2 input-md select2-single align_left" name="ticketEvent[status]" id="ticketEvent_status" required>
+                                                <option class="Changement_d'une_pièce" value="Ouvert">Ouvert</option>
+                                                <option class="Demande_Désassemblage Demande_Validation_de_Devis" value="En Attente Client">En Attente Client</option>
+                                                <option class="Demande_Désassemblage Demande_Validation_de_Devis Intervention_Constructeur_demandée" value="En Attente Constructeur">En Attente Constructeur</option>
+                                                <option class="Réparation_confirmée Envoi_Broker" value="Résolu">Résolu</option>
                                             </select>
                                         </div>
                                     </div>
@@ -193,10 +190,8 @@
                                 <div class="form-group">
                                     <label for="ticketEvent_comment" class="col-sm-2 control-label align_right font_exo_2">Pièce Jointe</label>
                                     <div class="col-sm-10">
-
-                                            <input type="file" class="form-control file" name="ticketEvent[file]" id="ticketEvent_file" multiple data-show-upload="true" data-show-caption="true">
-
-                                    </div>
+                                        <input type="file" class="form-control file font_exo_2 input-md" name="ticketEvent[file]" id="ticketEvent_file" multiple data-show-upload="true" data-show-caption="true">
+                                   </div>
                                 </div>
                             </div>
 
@@ -204,12 +199,14 @@
                                 <div class="form-group">
                                     <label for="ticketEvent_comment" class="col-sm-2 control-label align_right font_exo_2">Commentaire</label>
                                     <div class="col-sm-8">
-                                        <textarea width="100%" class="form-control font_exo_2 input-md" name="ticketEvent[comment]" id="ticketEvent_comment"></textarea>
+                                        <div class="input-group">
+                                            <span class="input-group-addon"><i class="fa fa-commenting fa" aria-hidden="true"></i></span>
+                                            <textarea width="100%" class="form-control font_exo_2 input-md" name="ticketEvent[comment]" id="ticketEvent_comment"></textarea>
+                                        </div>
                                     </div>
                                     <button type="button" class="btn btn-success" onclick="submit();" style="margin-right: 35px;margin-top: 10px">Ajouter</button>
                                 </div>
                             </div>
-
                         </form>
                     </div>
 
@@ -221,6 +218,7 @@
                                 <th class="admin_cat_table_title">Auteur</th>
                                 <th class="admin_cat_table_title">Status</th>
                                 <th class="admin_cat_table_title">Date</th>
+                                <th class="admin_cat_table_title">Fichiers</th>
                             </tr>
                             </thead>
                             <tbody id="events_table">

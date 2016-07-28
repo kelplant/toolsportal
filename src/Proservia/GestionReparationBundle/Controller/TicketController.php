@@ -5,9 +5,11 @@ use AppBundle\Services\Core\AbstractControllerService;
 use Proservia\GestionReparationBundle\Form\TicketType;
 use Proservia\GestionReparationBundle\Entity\Ticket;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class TicketController
@@ -77,6 +79,35 @@ class TicketController extends AbstractControllerService
 
     /**
      * @param Request $request
+     * @Route(path="/repair/ticket/add_event", name="form_exec_add_ticket_event")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function formExecAddTicketEventAction(Request $request)
+    {
+        $this->initData('add');
+        $this->initData('index');
+        $this->initBothForms();
+        $this->formEdit->handleRequest($request);
+        if ($this->formEdit->isSubmitted() && $this->formEdit->isValid()) {
+            $ticketEventToAdd = $request->request->get('ticketEvent');
+            $return = $this->get('repair.ticket_events_manager')->add(array('ticketId' => $ticketEventToAdd['ticketId'], 'user' => $this->get('security.token_storage')->getToken()->getUser()->getId(), 'event' => str_replace("_", " ", $ticketEventToAdd['action']), 'commentaire' => $ticketEventToAdd['comment'], 'status' =>  $ticketEventToAdd['status']));
+            $this->get('repair.ticket_manager')->edit($ticketEventToAdd['ticketId'], array('status' => $ticketEventToAdd['status']));
+            if(isset($request->files) && $request->files != null) {
+                $files = $request->files;
+                $uploadedFile = $files->get('ticketEvent')["file"];
+                $originalName = $uploadedFile->getClientOriginalName();
+                $timetrace = date("YmdHms");
+                $uploadedFile->move("c:\\www\\toolsportal\\web\\uploaded_files\\".$ticketEventToAdd['ticketId']."\\".$timetrace."\\", $originalName);
+                $this->get('repair.ticket_event_file_manager')->add(array('ticketId' => $ticketEventToAdd['ticketId'], 'ticketEventId' => $return['item']->getId(), 'originalFileName' => $originalName, 'stockFileName' => $timetrace));
+                $ticketEvent = $this->get('repair.ticket_events_manager')->load($return['item']->getId());
+                $ticketEvent->setFile(true);
+            }
+        }
+        return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
+    }
+
+    /**
+     * @param Request $request
      * @Route(path="/repair/ticket/edit", name="form_exec_edit_ticket")
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -97,7 +128,6 @@ class TicketController extends AbstractControllerService
         return new JsonResponse($this->get('repair.ticket_manager')->createArray($itemLoad));
     }
 
-
     /**
      * @param $itemLoad
      * @Route(path="/ajax/ticket_events/get/{itemLoad}", name="ajax_get_ticket_events_info")
@@ -112,5 +142,37 @@ class TicketController extends AbstractControllerService
             $finalTab[] = $itemList;
         }
         return new JsonResponse($finalTab);
+    }
+
+    /**
+     * @param $itemLoad
+     * @Route(path="/ajax/ticket_event_file/get/{itemLoad}", name="ajax_get_ticket_event_file")
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function ajaxGetTicketEventFiles($itemLoad)
+    {
+        return new JsonResponse($this->get('repair.ticket_event_file_manager')->createArray($itemLoad));
+    }
+
+    /**
+     * @param Request $request
+     * @param $ticketEventId
+     * @param $timestamp
+     * @param $filename
+     * @Route(path="/web/uploaded_files/{ticketEventId}/{timestamp}/{filename}", name="ajax_get_ticket_event_file_download")
+     * @return Response
+     */
+    public function downloadAction(Request $request, $ticketEventId, $timestamp, $filename)
+    {
+        $path = "c:\\www\\toolsportal\\web\\uploaded_files\\".$ticketEventId."\\".$timestamp."\\";
+        $content = file_get_contents($path.$filename);
+
+        $response = new Response();
+
+        $response->headers->set('Content-Type', 'mime/type');
+        $response->headers->set('Content-Disposition', 'attachment;filename="'.$filename);
+
+        $response->setContent($content);
+        return $response;
     }
 }
