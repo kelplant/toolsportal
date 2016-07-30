@@ -26,6 +26,9 @@ class IndexControllerService extends AbstractControllerService
         if ($entity == 'Panne' ) {
            return $panneCategory->setCategory($this->getConvertion('panneCategory', $panneCategory->getCategory(), 'repair')->getName());
         }
+        if ($entity == 'Ticket' ) {
+            return $panneCategory->setTypePanne($this->getConvertion('panneCategory', $panneCategory->getTypePanne(), 'repair')->getName());
+        }
         return null;
     }
 
@@ -37,7 +40,20 @@ class IndexControllerService extends AbstractControllerService
     public function ifFilterConvertPanne($panne, $entity)
     {
         if ($entity == 'Ticket') {
-            $panne->setPanne($this->getConvertion('panne', $panne->getAgence(), 'repair')->getName());
+            $panne->setPanne($this->getConvertion('panne', $panne->getPanne(), 'repair')->getName());
+        }
+        return null;
+    }
+
+    /**
+     * @param $panne
+     * @param $entity
+     * @return mixed|null
+     */
+    public function ifFilterConvertUtilisateur($panne, $entity)
+    {
+        if ($entity == 'Ticket') {
+            $panne->setPanne($this->getConvertion('panne', $panne->getPanne(), 'repair')->getName());
         }
         return null;
     }
@@ -69,7 +85,7 @@ class IndexControllerService extends AbstractControllerService
             $this->ifFilterConvertSite($item, $entity);
             $this->ifFilterConvertPanneCategorie($item, $entity);
             $this->ifFilterConvertProduct($item, $entity);
-            //$this->ifFilterConvertAgence($item, $entity);
+            $this->ifFilterConvertPanne($item, $entity);
         }
         return $allItems;
     }
@@ -81,7 +97,7 @@ class IndexControllerService extends AbstractControllerService
      */
     private function ifCandidatOUtilisateurList($entity, $isArchived)
     {
-          if ($entity == 'EtiquetteList') {
+          if ($entity == 'EtiquetteList' || $entity == 'Ticket') {
             return $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getlist($isArchived);
         } else {
             return $this->getListOfItems($this->entity, $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->getRepository()->findAll());

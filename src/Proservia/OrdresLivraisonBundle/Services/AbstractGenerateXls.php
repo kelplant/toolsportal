@@ -156,7 +156,7 @@ abstract class AbstractGenerateXls
             ));
     }
 
-    protected function richTectCreate(\PHPExcel_RichText $objRichText, $text, $bold, $italic, $font, $size, $color)
+    protected function richTectCreate(\PHPExcel_RichText $objRichText, $text, $bold, $italic, $font, $whatisthis, $size, $color)
     {
         $run = $objRichText->createTextRun($text);
         $phpFont = new PHPExcel_Style_Font();

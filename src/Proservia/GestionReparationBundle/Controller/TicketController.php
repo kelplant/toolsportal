@@ -97,10 +97,9 @@ class TicketController extends AbstractControllerService
                 $uploadedFile = $files->get('ticketEvent')["file"];
                 $originalName = $uploadedFile->getClientOriginalName();
                 $timetrace = date("YmdHms");
-                $uploadedFile->move("c:\\www\\toolsportal\\web\\uploaded_files\\".$ticketEventToAdd['ticketId']."\\".$timetrace."\\", $originalName);
+                $uploadedFile->move("c:\\www\\toolsportal\\web\\uploaded_files\\".$ticketEventToAdd['ticketId']."\\".$timetrace."\\", str_replace(" ", "_", $originalName));
                 $this->get('repair.ticket_event_file_manager')->add(array('ticketId' => $ticketEventToAdd['ticketId'], 'ticketEventId' => $return['item']->getId(), 'originalFileName' => $originalName, 'stockFileName' => $timetrace));
-                $ticketEvent = $this->get('repair.ticket_events_manager')->load($return['item']->getId());
-                $ticketEvent->setFile(true);
+                $this->get('repair.ticket_events_manager')->edit($return['item']->getId(), array('file' => '1'));
             }
         }
         return $this->get('core.index.controller_service')->getFullList($this->isArchived, $this->formAdd, $this->formEdit);
@@ -165,7 +164,7 @@ class TicketController extends AbstractControllerService
     public function downloadAction(Request $request, $ticketEventId, $timestamp, $filename)
     {
         $path = "c:\\www\\toolsportal\\web\\uploaded_files\\".$ticketEventId."\\".$timestamp."\\";
-        $content = file_get_contents($path.$filename);
+        $content = file_get_contents($path.str_replace(" ", "_", $filename));
 
         $response = new Response();
 

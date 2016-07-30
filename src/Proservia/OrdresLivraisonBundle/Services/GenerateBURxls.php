@@ -17,6 +17,33 @@ class GenerateBURxls extends AbstractGenerateXls
 
     public function generateBURxls($name, $site, $fixe1, $fixe2, $fixeBoost1, $portable1, $portable2, $portableBoost1, $portableUL1, $portableUL2, $comments)
     {
+        if ($fixe1 == 0) {
+            $fixe1 = "-";
+        }
+        if ($fixe2 == 0) {
+            $fixe2 = "-";
+        }
+        if ($fixeBoost1 == 0) {
+            $fixeBoost1 = "-";
+        }
+        if ($portable1 == 0) {
+            $portable1 = "-";
+        }
+        if ($portable2 == 0) {
+            $portable2 = "-";
+        }
+        if ($portableBoost1 == 0) {
+            $portableBoost1 = "-";
+        }
+        if ($portableUL1 == 0) {
+            $portableUL1 = "-";
+        }
+        if ($portableUL2 == 0) {
+            $portableUL2 = "-";
+        }
+        if ($comments == 0) {
+            $comments = "-";
+        }
         $siteDetail = $this->siteManager->load($site);
         $contact1   = $this->contactManager->load($siteDetail->getContact1());
         $contact2   = $this->contactManager->load($siteDetail->getContact2());
@@ -107,7 +134,7 @@ class GenerateBURxls extends AbstractGenerateXls
 
         $phpExcelObject->getActiveSheet()->getSheetView()->setZoomScale(55);
 
-        $phpExcelObject->getActiveSheet()->setTitle('OL'.date('ymd').'ECR');
+        $phpExcelObject->getActiveSheet()->setTitle($name);
 
         $phpExcelObject->getActiveSheet()->getStyle('B2:L61')->applyFromArray(array(
             'fill' => array(

@@ -1,6 +1,7 @@
 {% extends 'AppBundle:Default:items.view.html.twig' %}
     {% block stylesheetsAdd %}
         <link href="{{ asset('css/bootstrap/fileinput.css') }}" media="all" rel="stylesheet" type="text/css" />
+        <link href="{{ asset('css/datatables/buttons.dataTables.min.css') }}" media="all" rel="stylesheet" type="text/css" />
     {% endblock %}
     {% block title %} Liste des Tickets {% endblock %}
     {% block title2 %} Divers {% endblock %}
@@ -13,7 +14,15 @@
         <th class="admin_cat_table_title">Status</th>
         <th class="admin_cat_table_title">S/N</th>
         <th class="admin_cat_table_title">Modèle</th>
+        <th class="admin_cat_table_title">Type de Panne</th>
+        <th class="admin_cat_table_title">Panne</th>
         <th class="admin_cat_table_title">Site</th>
+        <th class="admin_cat_table_title">Date Fin de Garantie</th>
+        <th class="admin_cat_table_title">Garantie Echue</th>
+        <th class="admin_cat_table_title">Type de Garantie</th>
+        <th class="admin_cat_table_title">Mode Achat</th>
+        <th class="admin_cat_table_title">Commentaire</th>
+        <th class="admin_cat_table_title">utilisateur</th>
     {% endblock %}
     {% block corps_table_cells %}
         {% for item in all %}
@@ -24,7 +33,15 @@
                 <td class="admin_cat_table_cell">{{ item.status }}</td>
                 <td class="admin_cat_table_cell">{{ item.serial }}</td>
                 <td class="admin_cat_table_cell">{{ item.product }}</td>
+                <td class="admin_cat_table_cell">{{ item.typePanne }}</td>
+                <td class="admin_cat_table_cell">{{ item.panne }}</td>
                 <td class="admin_cat_table_cell">{{ item.site }}</td>
+                <td class="admin_cat_table_cell">{{ item.endOfWarranty|date("d-m-Y") }}</td>
+                <td class="admin_cat_table_cell">{% if item.endOfWarranty >= "now"|date("m-d-Y") %} Active {% endif %} {% if item.endOfWarranty < "now"|date("m-d-Y") %} Echue {% endif %}</td>
+                <td class="admin_cat_table_cell">{{ item.typeWarranty }}</td>
+                <td class="admin_cat_table_cell">{{ item.buyMode }}</td>
+                <td class="admin_cat_table_cell">{{ item.comment }}</td>
+                <td class="admin_cat_table_cell">{{ item.user }}</td>
                 <td class="admin_cat_table_cell_action">
                     {% if item.isArchived == 0 %}
                         <button type="button" class="btn btn-default btn-xs" aria-label="Left Align" title="Editer {{ alert_text }}" onclick="ajaxTicketEdit('{{ entity }}', this.name);" data-toggle="modal" data-target="#modalEdit" id="editForm" name="{{ item.id }}">
@@ -60,6 +77,13 @@
     {% endblock %}
 
     {% block javascripts %}
+        <script src="{{ asset('js/datatables/dataTables.buttons.min.js') }}"></script>
+        <script src="{{ asset('js/datatables/buttons.flash.min.js') }}"></script>
+        <script src="{{ asset('js/datatables/buttons.html5.min.js') }}"></script>
+        <script src="{{ asset('js/datatables/buttons.print.min.js') }}"></script>
+        <script src="{{ asset('js/datatables/jszip.min.js') }}"></script>
+        <script src="{{ asset('js/datatables/pdfmake.min.js') }}"></script>
+        <script src="{{ asset('js/datatables/vfs_fonts.js') }}"></script>
         <script src="{{ asset('js/bootstrap/bootstrap-datepicker.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap/locales/bootstrap-datepicker.fr.min.js') }}"></script>
         <script src="{{ asset('js/select2/select2.full.js') }}"></script>
@@ -71,6 +95,34 @@
         <script src="{{ asset('js/bootstrap/fileinput.js') }}"></script>
         <script src="{{ asset('js/bootstrap/theme.js') }}"></script>
         <script src="{{ asset('js/bootstrap/fileinput-fr.js') }}"></script>
+
+        <script>
+            $(document).ready(function(){
+                $('#bootstrap-ticket').DataTable({
+                    "dom": '<".todofilter"><B"top">rt<"bottom"p><"clear">B',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'print'
+                    ],
+                    "order": [[ 0, "desc" ]],
+                    bFilter: true,
+                    bInfo: false,
+                    bLengthChange:false,
+                    "pageLength": 13,
+                    "language": {
+                        "paginate": {
+                            "previous": "Préc.",
+                            "next": "Suiv."
+                        },
+                        "zeroRecords": "Pas de données à Afficher",
+                        "search": ""
+                    }
+                });
+                $('#global_filter').on( 'keyup click', function () {
+                    filterGlobal();
+                } );
+                $('.dt-button').addClass("btn btn-info");
+            });
+        </script>
 
         <script>
             $("#ticketEvent_file").fileinput();
@@ -215,7 +267,7 @@
                                         success:function(result3) {
                                         var k;
                                         for (k in result3) {
-                                            textToAppend += '<a href="/web/uploaded_files/' + result.id +'/'+ result3[k].stockFileName +'/' + result3[k].originalFileName +'">' +
+                                            textToAppend += '<a href="/web/uploaded_files/' + result.id +'/'+ result3[k].stockFileName +'/' + result3[k].originalFileName.replace(/[ ]/g, '_') +'">' +
                                                     result3[k].originalFileName +
                                             '</a>';
                                         }
