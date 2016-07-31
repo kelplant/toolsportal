@@ -11,7 +11,8 @@
                     <i class="fa fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="font_exo_2 {% if 'ticket' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_tickets_reparation') }}"><i class="fa fa-television"></i> Tickets en Cours</a></li>
+                    <li class="font_exo_2 {% if 'ticket' in app.request.attributes.get('_route')  == 1 and 'ticket_dashboard' in app.request.attributes.get('_route') == 0 %} active {%  endif %}"><a href="{{ path('liste_des_tickets_reparation') }}"><i class="fa fa-television"></i> Tickets en Cours</a></li>
+                    <li class="font_exo_2 {% if 'ticket_dashboard' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('admin_ticket_dashboard') }}"><i class="fa fa-television"></i> Dashboard Tickets</a></li>
                 </ul>
             </li>
             <li class="header font_exo_2" id="admin_panel">

@@ -1,0 +1,79 @@
+<div class="col-lg-3 col-xs-6">
+    <div class="small-box bg-aqua">
+        <div class="pull-right" style="margin-right: 10px">
+            <h2>{{ nb_ticket_7days_last_week.nbTicket }}</h2>
+            {% if nb_ticket_7days_last_week.nbTicket < nb_ticket_7days.nbTicket %}
+                <i class="fa fa-frown-o fa-2x" style="color: red"></i>
+            {% endif %}
+            {% if nb_ticket_7days_last_week.nbTicket > nb_ticket_7days.nbTicket %}
+                <i class="fa fa-smile-o fa-2x" style="color: green"></i>
+            {% endif %}
+            {% if nb_ticket_7days_last_week.nbTicket == nb_ticket_7days.nbTicket %}
+                <i class="fa fa-meh-o fa-2x"></i>
+            {% endif %}
+        </div>
+        <div class="inner">
+            <h3>{{ nb_ticket_7days.nbTicket }} Tickets</h3>
+            <p>Ouverts sur les 7 derniers jours</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-bag"></i>
+        </div>
+        <a href="{{ path('liste_des_tickets_reparation') }}" class="small-box-footer">Plus d'infos <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-green">
+        <div class="pull-right" style="margin-right: 10px">
+            <h2 style="margin-right: 10px">{{ nb_ticket_solved_7days_last_week.nbTicket }}</h2>
+            {% if nb_ticket_solved_7days_last_week.nbTicket > nb_ticket_solved_7days.nbTicket %}
+                <i class="fa fa-frown-o fa-2x" style="color: red"></i>
+            {% endif %}
+            {% if nb_ticket_solved_7days_last_week.nbTicket < nb_ticket_solved_7days.nbTicket %}
+                <i class="fa fa-smile-o fa-2x" style="color: green"></i>
+            {% endif %}
+            {% if nb_ticket_solved_7days_last_week.nbTicket == nb_ticket_solved_7days.nbTicket %}
+                <i class="fa fa-meh-o fa-2x"></i>
+            {% endif %}
+        </div>
+        <div class="inner">
+            <h3>{{ nb_ticket_solved_7days.nbTicket }} Tickets</h3>
+            <p>Résolus sur les 7 derniers jours</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-stats-bars"></i>
+        </div>
+        <a href="{{ path('liste_des_tickets_reparation') }}" class="small-box-footer">Plus d'infos <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-yellow">
+        <div class="inner">
+            <h3>{{ count_moyenne_jour_non_resolu.nbJours }} Jours</h3>
+            {#<sup style="font-size: 20px">%</sup>#}
+            <p>La Moyenne en jours des tickets ouverts</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-person-add"></i>
+        </div>
+        <a href="{{ path('liste_des_tickets_reparation') }}" class="small-box-footer">Plus d'infos <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>
+
+<div class="col-lg-3 col-xs-6">
+    <!-- small box -->
+    <div class="small-box bg-red">
+        <div class="inner">
+            <h3>{{ nb_total_ticket.nbTicket }} Tickets</h3>
+            <p>Ouverts Actuellement</p>
+        </div>
+        <div class="icon">
+            <i class="ion ion-pie-graph"></i>
+        </div>
+        <a href="{{ path('liste_des_tickets_reparation') }}" class="small-box-footer">Plus d'infos <i class="fa fa-arrow-circle-right"></i></a>
+    </div>
+</div>

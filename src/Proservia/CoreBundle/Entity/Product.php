@@ -25,6 +25,12 @@ class Product
 
     /**
      * @var string
+     * @ORM\Column(type="string", length=100)
+     */
+    protected $shortName;
+
+    /**
+     * @var string
      * @ORM\Column(type="text")
      */
     protected $description;
@@ -98,6 +104,24 @@ class Product
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getShortName()
+    {
+        return $this->shortName;
+    }
+
+    /**
+     * @param string $shortName
+     * @return Product
+     */
+    public function setShortName($shortName)
+    {
+        $this->shortName = $shortName;
         return $this;
     }
 

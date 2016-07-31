@@ -92,7 +92,7 @@ class TicketController extends AbstractControllerService
             $ticketEventToAdd = $request->request->get('ticketEvent');
             $return = $this->get('repair.ticket_events_manager')->add(array('ticketId' => $ticketEventToAdd['ticketId'], 'user' => $this->get('security.token_storage')->getToken()->getUser()->getId(), 'event' => str_replace("_", " ", $ticketEventToAdd['action']), 'commentaire' => $ticketEventToAdd['comment'], 'status' =>  $ticketEventToAdd['status']));
             $this->get('repair.ticket_manager')->edit($ticketEventToAdd['ticketId'], array('status' => $ticketEventToAdd['status']));
-            if(isset($request->files) && $request->files != null) {
+            if(isset($request->files->get('ticketEvent')["file"]) && $request->files->get('ticketEvent')["file"] != null) {
                 $files = $request->files;
                 $uploadedFile = $files->get('ticketEvent')["file"];
                 $originalName = $uploadedFile->getClientOriginalName();

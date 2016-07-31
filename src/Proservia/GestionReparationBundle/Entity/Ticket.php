@@ -96,6 +96,12 @@ class Ticket
      * @var DateTime
      * @ORM\Column(type="datetime", nullable=true)
      */
+    protected $solvedAt;
+
+    /**
+     * @var DateTime
+     * @ORM\Column(type="datetime", nullable=true)
+     */
     protected $updatedAt;
 
     /**
@@ -237,6 +243,9 @@ class Ticket
     public function setStatus($status)
     {
         $this->status = $status;
+        if ($status == 'Résolu') {
+            $this->setSolvedAt(new DateTime());
+        }
         return $this;
     }
 
@@ -363,6 +372,24 @@ class Ticket
     public function setCreatedAt($createdAt)
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return DateTime
+     */
+    public function getSolvedAt()
+    {
+        return $this->solvedAt;
+    }
+
+    /**
+     * @param DateTime $solvedAt
+     * @return Ticket
+     */
+    public function setSolvedAt($solvedAt)
+    {
+        $this->solvedAt = $solvedAt;
         return $this;
     }
 

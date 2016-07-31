@@ -1,4 +1,4 @@
-{% if panel == 'admin' %}
+{% if entity is defined %}
     <div class="disabled" data-href="#" xmlns="http://www.w3.org/1999/html">
         {% if entity != '' and entity != 'salesforce_profile' and entity != 'salesforce_groupe' and entity != 'salesforce_territory' and entity != 'active_directory_group' and entity != 'active_directory_organisation_unit' and entity != 'google_group' %}
             {% if app.request.query.get('isArchived') is defined and app.request.query.get('isArchived') == 0 or app.request.query.get('isArchived') is not defined %}
@@ -25,7 +25,7 @@
                 <div class="input-group ">
                     <span class="input-group-addon"><i class="fa fa-eye"></i></span>
                     <select name="addHideColum" id="addHideColum" class="font_exo_2 form-control toggle-vis" >
-                        <option value="">--</option>
+                        <option value="">Cacher/Montrer Colonne</option>
                         <option value="0" data-column="0">N° Ticket</option>
                         <option value="1" data-column="1">DSP</option>
                         <option value="2" data-column="2">Date Création</option>

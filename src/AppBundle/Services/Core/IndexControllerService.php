@@ -161,26 +161,20 @@ class IndexControllerService extends AbstractControllerService
         $session_messaging = $this->get('session')->get('messaging');
         $this->get('session')->set('messaging', []);
         $globalAlertColor = $this->getGlobalAlertColor($session_messaging);
-        //$candidatListe = $this->get('core.candidat_manager')->getRepository()->findBy(array('isArchived' => '0'), array('startDate' => 'ASC'));
         $userInfos = $this->get('security.token_storage')->getToken()->getUser();
-        //$myProfil = $this->get('core.utilisateur_manager')->load($this->get('ad.active_directory_user_link_manager')->getRepository()->findOneByIdentifiant($userInfos->getUsername())->getUser());
 
         return $this->render(explode("\\", $this->newEntity)[0].$this->bundleName.':'.$this->entity.':view.html.twig', array(
             'all'                           => $allItems,
             'fieldsOptions'                 => $this->generateListeChoices(),
             'panel'                         => 'admin',
-            //'utilisateursList'              => $this->get("core.utilisateur_manager")->createListForSelect(),
             'remove_path'                   => 'remove_'.strtolower($this->entity), 
             'alert_text'                    => $this->alertText,
             'is_archived'                   => $isArchived,
             'entity'                        => strtolower($this->checkFormEntity($this->entity)),
-            //'nb_candidat'                   => count($candidatListe),
-            //'candidat_color'                => $this->colorForCandidatSlider($candidatListe[0]->getStartDate()->format("Y-m-d")),
             'formAdd'                       => $formAdd->createView(),
-            'formEdit'  => $formEdit->createView(),
-            'session_messaging' => $session_messaging,
+            'formEdit'                      => $formEdit->createView(),
+            'session_messaging'             => $session_messaging,
             'currentUserInfos'              => $userInfos,
-            //'userPhoto'                     => $this->get('google.google_user_api_service')->base64safeToBase64(stream_get_contents($userInfos->getPhoto())),
             'globalAlertColor'              => $globalAlertColor,
             'remaining_gmail_licenses'      => $this->get('app.parameters_calls')->getParam('remaining_google_licenses'),
             'remaining_salesforce_licenses' => $this->get('app.parameters_calls')->getParam('remaining_licences_type_Salesforce'),
