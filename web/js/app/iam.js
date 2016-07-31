@@ -20,6 +20,20 @@ function ajaxCoreEdit(url, editItem)
     }});
 }
 
+// Recherche sur homepage
+function filterGlobal () {
+    $('#bootstrap-todo').DataTable().search(
+        $('#global_filter').val()
+    ).draw();
+}
+
+
+// Recherche sur homepage
+function filterGlobalTicket () {
+    $('#bootstrap-ticket').DataTable().search(
+        $('#global_filter').val()
+    ).draw();
+}
 
 function ticketMenu(id) {
     $('.ticket_view_menu').removeClass("active");

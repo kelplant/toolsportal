@@ -54,6 +54,7 @@
     <script src="{{ asset('js/jquery/jquery.chained.min.js') }}"></script>
 {% endblock %}
 {% block javascriptsEnd %}
+    {% if entity != 'Ticket' %}
     <script>
         $(document).ready(function(){
             $('#bootstrap-todo').DataTable({
@@ -77,6 +78,7 @@
             } );
         });
     </script>
+    {% endif %}
     {#Fonction de confirmation personalisée bootstrap#}
     <script>
         $(function() {
