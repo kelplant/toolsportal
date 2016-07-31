@@ -11,9 +11,6 @@
             <button type="button" class="btn btn-primary btn-info pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAddViaFile" id="addForm">
                 <i class="fa fa-plus"></i> Importer fichier</button>
         {% endif %}
-        {% if entity == 'ticket' %}
-
-        {% endif %}
 
         {% if entity != ''  %}
         <div class="col-sm-2 pull-right">
@@ -22,6 +19,31 @@
                   <input type="text" name="q" id="global_filter" class="font_exo_2 form-control" placeholder="Rechercher...">
             </div>
         </div>
+        {% endif %}
+        {% if entity == 'ticket' %}
+            <div class="col-sm-2 pull-right">
+                <div class="input-group ">
+                    <span class="input-group-addon"><i class="fa fa-eye"></i></span>
+                    <select name="addHideColum" id="addHideColum" class="font_exo_2 form-control toggle-vis" >
+                        <option value="">--</option>
+                        <option value="0" data-column="0">N° Ticket</option>
+                        <option value="1" data-column="1">DSP</option>
+                        <option value="2" data-column="2">Date Création</option>
+                        <option value="3" data-column="3">Status</option>
+                        <option value="4" data-column="4">Serial</option>
+                        <option value="5" data-column="5">Modèle</option>
+                        <option value="6" data-column="6">Type de Panne</option>
+                        <option value="7" data-column="7">Panne</option>
+                        <option value="8" data-column="8">Site</option>
+                        <option value="9" data-column="9">Fin de Garantie</option>
+                        <option value="10" data-column="10">Garantie Echue</option>
+                        <option value="11" data-column="11">Type de Garantie</option>
+                        <option value="12" data-column="12">Mode d'Achat</option>
+                        <option value="13" data-column="13">Commentaire</option>
+                        <option value="14" data-column="14">Utilisateur</option>
+                    </select>
+                </div>
+            </div>
         {% endif %}
     </div>
 {% endif %}

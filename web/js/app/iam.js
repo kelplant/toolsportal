@@ -27,6 +27,16 @@ function filterGlobal () {
     ).draw();
 }
 
+function showHideColumn () {
+    var sel = document.getElementById('addHideColum');
+    var myVar = sel.options[sel.selectedIndex].value;
+    console.log(myVar);
+        var table = document.getElementById('bootstrap-ticket');
+        // Get the column API object
+        var column = table.column(myVar);
+        // Toggle the visibility
+        column.visible( ! column.visible() );
+}
 
 // Recherche sur homepage
 function filterGlobalTicket () {

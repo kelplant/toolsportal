@@ -96,9 +96,10 @@
         <script src="{{ asset('js/bootstrap/theme.js') }}"></script>
         <script src="{{ asset('js/bootstrap/fileinput-fr.js') }}"></script>
 
+
         <script>
             $(document).ready(function(){
-                $('#bootstrap-ticket').DataTable({
+                var table = $('#bootstrap-ticket').DataTable({
                     "dom": '<".todofilter"><B"top">rt<"bottom"p><"clear">B',
                     buttons: [
                         'copy', 'csv', 'excel', 'print'
@@ -118,15 +119,34 @@
                     },
                     "columnDefs": [
                         {
-                            "targets": [ 2 ],
-                            "visible": false,
+                            "targets": [ 11 ],
+                            "visible": false
                         },
                         {
-                            "targets": [ 3 ],
+                            "targets": [ 12 ],
+                            "visible": false
+                        },
+                        {
+                            "targets": [ 13 ],
+                            "visible": false
+                        },
+                        {
+                            "targets": [ 14 ],
                             "visible": false
                         }
                     ]
                 });
+                $('.toggle-vis').on( 'change', function (e) {
+                    var sel = document.getElementById('addHideColum');
+                    var myVar = sel.options[sel.selectedIndex].value;
+                    e.preventDefault();
+                    // Get the column API object
+                    var column = table.column( myVar );
+
+                    // Toggle the visibility
+                    column.visible( ! column.visible() );
+                    $(".toggle-vis").val("");
+                } );
                 $('#global_filter').on( 'keyup click', function () {
                     filterGlobalTicket();
                 } );
