@@ -108,7 +108,11 @@ abstract class AbstractControllerService extends Controller
     public function saveEditIfSaveOrTransform($sendaction, $request)
     {
         if ($sendaction == "Sauvegarder" || $sendaction == "Sauver et Transformer") {
-            return  $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->checkFormEntity($this->entity)))['id'], $request->request->get(strtolower($this->checkFormEntity($this->entity))));
+            if ($this->entity == 'User') {
+                return  $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->edit($request->request->get('sendId'), $request->request->get(strtolower($this->checkFormEntity($this->entity))));
+            } else {
+                return  $this->get($this->servicePrefix.'.'.strtolower($this->entity).'_manager')->edit($request->request->get(strtolower($this->checkFormEntity($this->entity)))['id'], $request->request->get(strtolower($this->checkFormEntity($this->entity))));
+            }
         }
     }
 

@@ -6,6 +6,11 @@ parameters:
     app.parameters_calls.class: AppBundle\Services\Manager\ParametersManager
     app.factory.abstract.class: AppBundle\Factory\AbstractFactory
 
+    app.user_manager.class:  AppBundle\Services\Manager\UserManager
+    app.entity.user_manager.class:  AppBundle\Entity\User
+    app.entityname.user_manager.class: 'AppBundle\Entity\User'
+    app.argname.user_manager.class: 'Le User'
+
 services:
     app.parameters_calls:
         class: '%app.parameters_calls.class%'
@@ -24,3 +29,11 @@ services:
            class: Twig_Extensions_Extension_Intl
            tags:
                - { name: twig.extension }
+
+    app.user_manager:
+        class: '%app.user_manager.class%'
+        parent: app.abstract_manager
+        calls:
+        - [setEntity, ["%app.entity.user_manager.class%"]]
+        - [setEntityName, ["%app.entityname.user_manager.class%"]]
+        - [setArgname, ["%app.argname.user_manager.class%"]]

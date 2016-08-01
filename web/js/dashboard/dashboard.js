@@ -1,18 +1,12 @@
-
-
 $(function () {
   "use strict";
   // GRAPHIQUE NBTICKET PAR MODEL
+  var chart1 = echarts.init(document.getElementById('newticket_by_week'), 'macarons');
   var urlajaxGraph1 = "/ajax/dashboard/get/graph/recursiveEndOfWeek";
   $.ajax({
     url: urlajaxGraph1  , success: function (result1) {
-      var chart = echarts.init(document.getElementById('newticket_by_week'), 'macarons');
-      var itemStyle = {
-        normal: {
-        }
-      };
-
-      chart.setOption({
+      var itemStyle = {normal: {}};
+      chart1.setOption({
         legend: {
           data:['Ouvertures','Fermetures']
         },
@@ -33,8 +27,7 @@ $(function () {
         tooltip: {
           formatter : function (params) {
             return 'Semaine ' + params[1].substring(4, 6) + ' Année ' + params[1].substring(0, 4) + '<br>' + params[2] + ' postes';
-
-          },
+          }
         },
         xAxis : [
           {
@@ -74,7 +67,6 @@ $(function () {
             }
           }
         ],
-
         series: [{
           name: 'Ouvertures',
           type: 'bar',
@@ -92,22 +84,22 @@ $(function () {
           data: result1.datas1,
           itemStyle: itemStyle
         }]
-
       });
       $('#newticket_graph_overlay').addClass("hide");
     }});
 
+
   // GRAPHIQUE NBTICKET PAR STATUS
   var urlajaxGraph2 = "/ajax/dashboard/get/graph/status";
+  var chart2 = echarts.init(document.getElementById('ticket_by_status'), 'macarons');
   $.ajax({
-    url: urlajaxGraph2  , success: function (result2) {
-      var chart = echarts.init(document.getElementById('ticket_by_status'), 'macarons');
+    url: urlajaxGraph2, success: function (result2) {
       var itemStyle = {
         normal: {
         }
       };
 
-      chart.setOption({
+      chart2.setOption({
         //legend: {
         //  data: result2.legend,
         //  x: 'right',
@@ -145,17 +137,15 @@ $(function () {
     }});
 
   // GRAPHIQUE NBTICKET PAR TYPE PANNE
+  var chart3 = echarts.init(document.getElementById('ticket_by_type_panne'), 'macarons');
   var urlajaxGraph3 = "/ajax/dashboard/get/graph/type_panne";
   $.ajax({
     url: urlajaxGraph3  , success: function (result3) {
-      var chart = echarts.init(document.getElementById('ticket_by_type_panne'), 'macarons');
-
       var itemStyle = {
         normal: {
         }
       };
-
-      chart.setOption({
+      chart3.setOption({
         legend: {
           data: result3.legend,
           x: 'right',
@@ -193,17 +183,15 @@ $(function () {
     }});
 
   // GRAPHIQUE NBTICKET PAR MODEL
+  var chart4 = echarts.init(document.getElementById('ticket_by_model'), 'macarons');
   var urlajaxGraph4 = "/ajax/dashboard/get/graph/model";
   $.ajax({
     url: urlajaxGraph4  , success: function (result4) {
-      var chart = echarts.init(document.getElementById('ticket_by_model'), 'macarons');
-
       var itemStyle = {
         normal: {
         }
       };
-
-      chart.setOption({
+      chart4.setOption({
         toolbox: {
           x: 'right',
           y: 'bottom',
@@ -294,17 +282,16 @@ $(function () {
     }});
 
   // GRAPHIQUE NBTICKET PAR MODEL CATEGORY
+  var chart5 = echarts.init(document.getElementById('ticket_by_model_category'), 'macarons');
   var urlajaxGraph5 = "/ajax/dashboard/get/graph/model_category";
   $.ajax({
     url: urlajaxGraph5  , success: function (result5) {
-      var chart = echarts.init(document.getElementById('ticket_by_model_category'), 'macarons');
-
       var itemStyle = {
         normal: {
         }
       };
 
-      chart.setOption({
+      chart5.setOption({
         //legend: {
         //  data: result5.legend,
         //  x: 'right',
@@ -342,17 +329,16 @@ $(function () {
     }});
 
   // GRAPHIQUE NBTICKET EN STOCK
+  var chart6 = echarts.init(document.getElementById('stock_ticket_by_week'), 'macarons');
   var urlajaxGraph6 = "/ajax/dashboard/get/graph/recursiveEndOfWeek";
   $.ajax({
     url: urlajaxGraph6  , success: function (result6) {
-      var chart = echarts.init(document.getElementById('stock_ticket_by_week'), 'macarons');
-
       var itemStyle = {
         normal: {
         }
       };
 
-      chart.setOption({
+      chart6.setOption({
         toolbox: {
           x: 'right',
           y: 'bottom',
@@ -419,16 +405,14 @@ $(function () {
 
   // GRAPHIQUE NBTICKET PAR END OF WARRANTY
   var urlajaxGraph7 = "/ajax/dashboard/get/graph/end_of_warranty";
+  var chart7 = echarts.init(document.getElementById('newticket_by_end_warranty'), 'macarons');
   $.ajax({
     url: urlajaxGraph7  , success: function (result7) {
-      var chart = echarts.init(document.getElementById('newticket_by_end_warranty'), 'macarons');
-
       var itemStyle = {
         normal: {
         }
       };
-
-      chart.setOption({
+      chart7.setOption({
         //legend: {
         //  data: result5.legend,
         //  x: 'right',
@@ -495,4 +479,13 @@ $(function () {
       });
       $('#end_warranty_graph_overlay').addClass("hide");
     }});
+  $(window).on('resize', function(){
+    chart1.resize();
+    chart2.resize();
+    chart3.resize();
+    chart4.resize();
+    chart5.resize();
+    chart6.resize();
+    chart7.resize();
+  });
 });

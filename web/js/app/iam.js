@@ -10,13 +10,17 @@ function ajaxCoreEdit(url, editItem)
         var i;
         for (i in result) {
             frm.find('[name="'+url+'[' + i + ']"]').val(result[i]);
-            $('.select2-single').select2({
-                theme: "bootstrap",
-                width: null,
-                containerCssClass: ':all:',
-                placeholder: "Choisir une option"
-            });
         }
+        if (url ='user') {
+            document.getElementById("user_enabled").checked = result.enabled;
+            frm.find('[name="sendId"]').val(result.id);
+        }
+        $('.select2-single').select2({
+            theme: "bootstrap",
+            width: null,
+            containerCssClass: ':all:',
+            placeholder: "Choisir une option"
+        });
     }});
 }
 

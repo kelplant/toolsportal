@@ -18,8 +18,9 @@
 }
 [type="checkbox"]:not(:checked) + label:before,
 [type="checkbox"]:checked + label:before {
-    left:0; top: -8px;
-    width: 2em; height: 1.2em;
+    left:200%;
+    top: 0px;
+    width: 3em; height: 1.6em;
     background: #DDDDDD;
     border-radius: 15px;
     -webkit-transition: background-color .2s;
@@ -29,14 +30,15 @@
 }
 [type="checkbox"]:not(:checked) + label:after,
 [type="checkbox"]:checked + label:after {
-    width: 0.7em; height: 0.7em;
+    width: 1em;
+    height: 1em;
     -webkit-transition: all .2s;
     -moz-transition: all .2s;
     -ms-transition: all .2s;
     transition: all .2s;
     border-radius: 50%;
     background: #7F8C9A;
-    top: -4px; left: 5px;
+    top: 5px; left: 205%;
 }
 
 /* on checked */
@@ -45,15 +47,15 @@
 }
 [type="checkbox"]:checked + label:after {
     background: #39D2B4;
-    top: -4px; left: 18px;
+    top: 5px; left: 230%;
 }
 
 [type="checkbox"]:checked + label .ui,
 [type="checkbox"]:not(:checked) + label .ui:before,
 [type="checkbox"]:checked + label .ui:after {
     position: absolute;
-    left: 6px;
-    width: 65px;
+    left: 30%;
+    width: 100%;
     border-radius: 15px;
     font-size: 14px;
     font-weight: bold;
@@ -70,5 +72,4 @@
     -moz-box-sizing: border-box;
     -ms-box-sizing: border-box;
     box-sizing: border-box;
-    margin-top: -1px;
 }

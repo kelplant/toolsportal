@@ -17,41 +17,31 @@
     <section class="col-sm-12 connectedSortable">
         <div class="nav-tabs-custom">
             <div class="tab-content no-padding">
-                {#<div class="col-sm-8" id="dashboard-calendar">#}
-                {#{% embed 'DashboardBundle:Default:calendar.html.twig'  %}#}
-                {#{% endembed %}#}
-                {#</div>#}
-                {#<div class="col-sm-4" id="dashboard-right">#}
-                {#{% embed 'DashboardBundle:Default:latest_members.html.twig'  %}#}
-                {#{% endembed %}#}
-                {#{% embed 'DashboardBundle:Default:todo_list.html.twig'  %}#}
-                {#{% endembed %}#}
-                {#</div>#}
-                <div class="col-sm-12" id="dashboard-graphs_ticketsByWeeks">
+                <div class="col-sm-12 container-fluid" id="dashboard-graphs_ticketsByWeeks">
                     {% embed '@ProserviaGestionReparation/Dashboard/graph_ticketsByWeeks.html.twig'  %}
                     {% endembed %}
                 </div>
-                <div class="col-sm-12" id="dashboard-graphs_stockTicketsByWeeks">
+                <div class="col-sm-12 container-fluid" id="dashboard-graphs_stockTicketsByWeeks">
                     {% embed '@ProserviaGestionReparation/Dashboard/graph_stockTicketsByWeeks.html.twig'  %}
                     {% endembed %}
                 </div>
-                <div class="col-sm-4" id="dashboard-graphs_end_warranty">
+                <div class="col-sm-4 container-fluid" id="dashboard-graphs_end_warranty">
                     {% embed '@ProserviaGestionReparation/Dashboard/graph_ticketsByEndWarranty.html.twig'  %}
                     {% endembed %}
                 </div>
-                <div class="col-sm-4" id="dashboard-graphs_ticketsBStatus">
+                <div class="col-sm-4 container-fluid" id="dashboard-graphs_ticketsBStatus">
                     {% embed 'ProserviaGestionReparationBundle:Dashboard:graph_ticketsByStatus.html.twig'  %}
                     {% endembed %}
                 </div>
-                <div class="col-sm-4" id="dashboard-graphs_ticketsByTypePanne">
+                <div class="col-sm-4 container-fluid" id="dashboard-graphs_ticketsByTypePanne">
                     {% embed 'ProserviaGestionReparationBundle:Dashboard:graph_ticketsByTypePanne.html.twig'  %}
                     {% endembed %}
                 </div>
-                <div class="col-sm-5" id="dashboard-graphs_ticketsByModel">
+                <div class="col-sm-5 container-fluid" id="dashboard-graphs_ticketsByModel">
                     {% embed 'ProserviaGestionReparationBundle:Dashboard:graph_ticketsByModel.html.twig'  %}
                     {% endembed %}
                 </div>
-                <div class="col-sm-7" id="dashboard-graphs_ticketsByModelCategory">
+                <div class="col-sm-7 container-fluid" id="dashboard-graphs_ticketsByModelCategory">
                     {% embed 'ProserviaGestionReparationBundle:Dashboard:graph_ticketsByModelCategory.html.twig'  %}
                     {% endembed %}
                 </div>

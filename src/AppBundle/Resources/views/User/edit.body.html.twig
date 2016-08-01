@@ -1,0 +1,68 @@
+<div class="modal fade" role="dialog" aria-labelledby="myLargeModalLabel" id="modalEdit">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form action="{{ path('form_exec_edit_user') }}" method="post" class="form-horizontal" id="form-edit">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title font_exo_2" id="myModalLabel">Edition d'une Panne</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="main_container">
+                        <input type="hidden" name="formAction" value="edit">
+                        {{ form_errors(formEdit) }}
+                        <div class="form-group">
+                            {{ form_label(formEdit.username) }}
+                            {{ form_errors(formEdit.username) }}
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formEdit.username) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            {{ form_label(formEdit.email) }}
+                            {{ form_errors(formEdit.email) }}
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    {{ form_widget(formEdit.email) }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-3 control-label align_right font_exo_2" for="user_roles">Rôle</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    <select class="form-control font_exo_2" name="user[roles]" id="user_roles">
+                                        <option value="">--</option>
+                                        <option value="ROLE_ADMIN">Admin</option>
+                                        <option value="ROLE_EDF">EDF</option>
+                                        <option value="ROLE_PILOTE">Pilote</option>
+                                        <option value="ROLE_TECH">Technicien</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="user_enabled" class="col-sm-3 control-label align_right font_exo_2">Compte Actif</label>
+                            <div class="col-sm-8">
+                                <div class="input-group center text-center">
+                                    <input type="checkbox" class="btn btn-default btn-xs font_exo_2 checkbox_transform" name="user[enabled]"  id="user_enabled">
+                                    <label for="user_enabled" ><span class="ui"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                        <input type="hidden" name="sendId" id="sendId">
+                        {{ form_rest(formEdit) }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Fermer</button>
+                    <input type="submit" class="btn btn-success" name="sendAction" value="Sauvegarder">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

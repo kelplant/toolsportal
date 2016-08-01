@@ -12,7 +12,6 @@ use Symfony\Component\Validator\Constraints\DateTime;
  */
 class TicketManager extends AbstractManager
 {
-
     /**
      * @param $itemLoad
      * @return mixed
