@@ -4,7 +4,12 @@ namespace AppBundle\Controller;
 use AppBundle\Services\Core\AbstractControllerService;
 use AppBundle\Form\UserType;
 use AppBundle\Entity\User;
+use FOS\UserBundle\Event\FilterUserResponseEvent;
+use FOS\UserBundle\Event\GetResponseUserEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -34,18 +39,23 @@ class UserController extends AbstractControllerService
     }
 
     /**
-     * @Route(path="/repair/user", name="liste_user")
+     * @Route(path="/divers/user", name="liste_user")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {
         $this->initData('index');
-        return $this->get('core.index.controller_service')->generateIndexAction(NULL);
+        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        $formFactory = $this->get('fos_user.registration.form.factory');
+        $this->formAdd = $formFactory->createForm();
+        $this->formEdit = $this->generateForm();
+
+        return $this->get('core.index.controller_service')->getFullList('0', $this->formAdd, $this->formEdit);
     }
 
     /**
      * @param Request $request
-     * @Route(path="/repair/user/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_user")
+     * @Route(path="/divers/user/delete/{itemDelete}", defaults={"delete" = 0} , name="remove_user")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function deleteAction(Request $request)
@@ -59,19 +69,53 @@ class UserController extends AbstractControllerService
 
     /**
      * @param Request $request
-     * @Route(path="/repair/user/add", name="form_exec_add_user")
+     * @Route(path="/divers/user/add", name="form_exec_add_user")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_addAction(Request $request)
     {
-        $this->initData('add');
-        $this->initData('index');
-        return $this->get('core.add.controller_service')->executeRequestAddAction($request);
+        /** @var $formFactory \FOS\UserBundle\Form\Factory\FactoryInterface */
+        $formFactory = $this->get('fos_user.registration.form.factory');
+        /** @var $userManager \FOS\UserBundle\Model\UserManagerInterface */
+        $userManager = $this->get('fos_user.user_manager');
+        /** @var $dispatcher \Symfony\Component\EventDispatcher\EventDispatcherInterface */
+        $dispatcher = $this->get('event_dispatcher');
+
+        $user = $userManager->createUser();
+        $user->setEnabled(true);
+
+        $event = new GetResponseUserEvent($user, $request);
+        $dispatcher->dispatch(FOSUserEvents::REGISTRATION_INITIALIZE, $event);
+
+        if (null !== $event->getResponse()) {
+            return $event->getResponse();
+        }
+
+        $form = $formFactory->createForm();
+        $form->setData($user);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $event = new FormEvent($form, $request);
+            $dispatcher->dispatch(FOSUserEvents::REGISTRATION_SUCCESS, $event);
+
+            $userManager->updateUser($user);
+
+            $url = $this->generateUrl('liste_user');
+            $response = new RedirectResponse($url);
+
+            return $response;
+        }
+
+        return $this->render('AppBundle:User:view.html.twig', array(
+            'form' => $form->createView(),
+        ));
     }
 
     /**
      * @param Request $request
-     * @Route(path="/repair/user/edit", name="form_exec_edit_user")
+     * @Route(path="/divers/user/edit", name="form_exec_edit_user")
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function form_exec_editAction(Request $request)

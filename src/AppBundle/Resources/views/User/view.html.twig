@@ -46,5 +46,13 @@
     {% endblock %}
 
     {% block javascripts %}
+<script>
+    $(document).ready(function() {
+        var mail = document.getElementById("fos_user_registration_form_plainPassword_second");
 
+        $("#fos_user_registration_form_plainPassword_first").keyup(function () {
+            mail.value = this.value;
+        });
+    });
+</script>
     {% endblock %}

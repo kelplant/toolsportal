@@ -1,51 +1,62 @@
 <aside class="main-sidebar">
     <section class="sidebar">
         <ul class="sidebar-menu">
-            <li class="header font_exo_2" id="admin_panel">
-                <span>GESTION REPARATION</span>
-            </li>
-            <li class="treeview  {% if 'ticket' in app.request.pathinfo == true %} active {%  endif %}" id="Tickets">
-                <a href="#">
-                    <i class="fa fa-truck"></i>
-                    <span class="font_exo_2">Tickets</span>
-                    <i class="fa fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="font_exo_2 {% if 'ticket' in app.request.attributes.get('_route')  == 1 and 'ticket_dashboard' in app.request.attributes.get('_route') == 0 %} active {%  endif %}"><a href="{{ path('liste_des_tickets_reparation') }}"><i class="fa fa-television"></i> Tickets en Cours</a></li>
-                    <li class="font_exo_2 {% if 'ticket_dashboard' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('admin_ticket_dashboard') }}"><i class="fa fa-television"></i> Dashboard Tickets</a></li>
-                </ul>
-            </li>
-            <li class="header font_exo_2" id="admin_panel">
-                <span>ORDRES LIVRAISON</span>
-            </li>
-            <li class="treeview  {% if 'order' in app.request.pathinfo == true %} active {%  endif %}" id="Orders">
-                <a href="#">
-                    <i class="fa fa-truck"></i>
-                    <span class="font_exo_2">Ordres</span>
-                    <i class="fa fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="font_exo_2 {% if 'screen' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_screen_order') }}"><i class="fa fa-television"></i> Liste des OL Ecrans</a></li>
-                    <li class="font_exo_2 {% if 'bureautique' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_bureautique_order') }}"><i class="fa fa-desktop"></i> Liste des OL Bureautique</a></li>
-                    <li class="font_exo_2 {% if 'specifique' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_specifique_order') }}"><i class="fa fa-laptop"></i> Liste des OL Spécifique</a></li>
-                </ul>
-            </li>
-            <li class="header font_exo_2" id="admin_panel">
-                <span>ADMINISTRATION</span>
-            </li>
-            <li class="treeview {% if 'products' in app.request.pathinfo == true %} active {%  endif %}" id="DiversOrders">
-                <a href="#">
-                    <i class="fa fa-home"></i> <span class="font_exo_2">Divers</span> <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li class="font_exo_2 {% if 'products' in app.request.pathinfo == true and 'category' not in app.request.pathinfo == true %} active {%  endif %}"><a href="{{ path('liste_des_produits') }}"><i class="fa fa-home"></i> Liste des Produits</a></li>
-                    <li class="font_exo_2 {% if 'category' in app.request.pathinfo == true %} active {%  endif %}"><a href="{{ path('liste_des_category') }}"><i class="fa fa-home"></i> Liste des Catégories</a></li>
-                    <li class="font_exo_2 {% if 'panne' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_panne') }}"><i class="fa fa-television"></i> Pannes</a></li>
-                    <li class="font_exo_2 {% if 'panne_category' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_panne_category') }}"><i class="fa fa-television"></i> Pannes Category</a></li>
-                    <li class="font_exo_2 {% if 'etiquette' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_etiquette_list') }}"><i class="fa fa-refresh"></i> Chargement SCOPE</a></li>
-                    <li class="font_exo_2 {% if 'user' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_user') }}"><i class="fa fa-users"></i> Gestion Utilisateurs</a></li>
-                </ul>
-            </li>
+            {% if is_granted("ROLE_TECH") %}
+                <li class="header font_exo_2" id="admin_panel">
+                    <span>GESTION REPARATION</span>
+                </li>
+                <li class="treeview  {% if 'ticket' in app.request.pathinfo == true %} active {%  endif %}" id="Tickets">
+                    <a href="#">
+                        <i class="fa fa-truck"></i>
+                        <span class="font_exo_2">Tickets</span>
+                        <i class="fa fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {% if is_granted("ROLE_TECH") %}
+                            <li class="font_exo_2 {% if 'ticket' in app.request.attributes.get('_route')  == 1 and 'ticket_dashboard' in app.request.attributes.get('_route') == 0 %} active {%  endif %}"><a href="{{ path('liste_des_tickets_reparation') }}"><i class="fa fa-television"></i> Tickets en Cours</a></li>
+                        {% endif %}
+                        {% if is_granted("ROLE_EDF") %}
+                            <li class="font_exo_2 {% if 'ticket_dashboard' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('admin_ticket_dashboard') }}"><i class="fa fa-television"></i> Dashboard Tickets</a></li>
+                        {% endif %}
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_PILOTE") %}
+                <li class="header font_exo_2" id="admin_panel">
+                    <span>ORDRES LIVRAISON</span>
+                </li>
+                <li class="treeview  {% if 'order' in app.request.pathinfo == true %} active {%  endif %}" id="Orders">
+                    <a href="#">
+                        <i class="fa fa-truck"></i>
+                        <span class="font_exo_2">Ordres</span>
+                        <i class="fa fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li class="font_exo_2 {% if 'screen' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_screen_order') }}"><i class="fa fa-television"></i> Liste des OL Ecrans</a></li>
+                        <li class="font_exo_2 {% if 'bureautique' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_bureautique_order') }}"><i class="fa fa-desktop"></i> Liste des OL Bureautique</a></li>
+                        <li class="font_exo_2 {% if 'specifique' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_des_specifique_order') }}"><i class="fa fa-laptop"></i> Liste des OL Spécifique</a></li>
+                    </ul>
+                </li>
+            {% endif %}
+            {% if is_granted("ROLE_ADMIN") %}
+                <li class="header font_exo_2" id="admin_panel">
+                    <span>ADMINISTRATION</span>
+                </li>
+                <li class="treeview {% if 'products' in app.request.pathinfo == true or 'user' in app.request.pathinfo == true or 'panne' in app.request.pathinfo == true %} active {%  endif %}" id="DiversOrders">
+                    <a href="#">
+                        <i class="fa fa-home"></i> <span class="font_exo_2">Divers</span> <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        {{ app.request.pathinfo }}
+                        <li class="font_exo_2 {% if 'products' in app.request.pathinfo == 1 and 'category' in app.request.pathinfo == 0 %} active {%  endif %}"><a href="{{ path('liste_des_produits') }}"><i class="fa fa-home"></i> Produits</a></li>
+                        <li class="font_exo_2 {% if 'category' in app.request.pathinfo == 1 and 'products' in app.request.pathinfo == 1 %} active {%  endif %}"><a href="{{ path('liste_des_category') }}"><i class="fa fa-home"></i> Produits Catégories</a></li>
+                        <li class="font_exo_2 {% if 'panne' in app.request.attributes.get('_route') == 1 and 'category' in app.request.attributes.get('_route') == 0 %} active {%  endif %}"><a href="{{ path('liste_panne') }}"><i class="fa fa-television"></i> Pannes</a></li>
+                        <li class="font_exo_2 {% if 'panne' in app.request.attributes.get('_route') == 1 and 'category' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_panne_category') }}"><i class="fa fa-television"></i> Pannes Catégories</a></li>
+                        <li class="font_exo_2 {% if 'etiquette' in app.request.pathinfo == 1 %} active {%  endif %}"><a href="{{ path('liste_des_etiquette_list') }}"><i class="fa fa-refresh"></i> Chargement SCOPE</a></li>
+                        <li class="font_exo_2 {% if 'user' in app.request.attributes.get('_route') == 1 %} active {%  endif %}"><a href="{{ path('liste_user') }}"><i class="fa fa-users"></i> Gestion Utilisateurs</a></li>
+                    </ul>
+                </li>
+            {% endif %}
         </ul>
     </section>
 </aside>

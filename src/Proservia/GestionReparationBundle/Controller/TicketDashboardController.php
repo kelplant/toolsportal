@@ -141,7 +141,7 @@ class TicketDashboardController extends Controller
     }
 
     /**
-     * @Route("/admin/dashboard/ticket_dashboard", name="admin_ticket_dashboard")
+     * @Route("/repair/dashboard/ticket_dashboard", name="admin_ticket_dashboard")
      */
     public function indexAction()
     {

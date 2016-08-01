@@ -9,28 +9,37 @@
                 <div class="modal-body">
                     <div class="main_container">
                         <input type="hidden" name="formAction" value="add">
-                        {{ form_errors(formAdd) }}
                         <div class="form-group">
-                            {{ form_label(formAdd.username) }}
-                            {{ form_errors(formAdd.username) }}
+                            <label for="fos_user_registration_form_username" class="col-sm-4 control-label align_right font_exo_2 required">Nom d&#039;utilisateur</label>
                             <div class="col-sm-6">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
-                                    {{ form_widget(formAdd.username) }}
+                                    <input class="form-control font_exo_2" type="text" id="fos_user_registration_form_username" name="fos_user_registration_form[username]" required="required" maxlength="255" pattern=".{2,}" />
                                 </div>
                             </div>
                         </div>
-                        {#<div class="form-group">#}
-                            {#{{ form_label(formAdd.roles) }}#}
-                            {#{{ form_errors(formAdd.roles) }}#}
-                            {#<div class="col-sm-6">#}
-                                {#<div class="input-group">#}
-                                    {#<span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>#}
-                                    {#{{ form_widget(formAdd.roles) }}#}
-                                {#</div>#}
-                            {#</div>#}
-                        {#</div>#}
-                        {{ form_rest(formAdd) }}
+                        <div class="form-group">
+                            <label for="fos_user_registration_form_email" class="col-sm-4 control-label align_right font_exo_2 required">Adresse e-mail</label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    <input class="form-control font_exo_2" type="email" id="fos_user_registration_form_email" name="fos_user_registration_form[email]" required="required" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="fos_user_registration_form_plainPassword_first" class="col-sm-4 control-label align_right font_exo_2 required">Mot de passe</label>
+                            <div class="col-sm-6">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-home fa" aria-hidden="true"></i></span>
+                                    <input class="form-control font_exo_2" type="text" id="fos_user_registration_form_plainPassword_first" name="fos_user_registration_form[plainPassword][first]" required="required" />
+                                    <input type="hidden" id="fos_user_registration_form_plainPassword_second" name="fos_user_registration_form[plainPassword][second]" required="required" />
+                                </div>
+                            </div>
+                        </div>
+                        {% if formAdd is defined %}
+                            {{ form_widget(formAdd._token) }}
+                        {% endif %}
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -8,34 +8,38 @@
             <li class="dropdown notifications-menu">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                     <i class="fa fa-bell-o"></i>
-                    {% if (session_messaging|length > 0) %}
-                    <span class="label label-{{ globalAlertColor }}">{{ session_messaging|length }}</span>
+                    {% if session_messaging is defined %}
+                        {% if (session_messaging|length > 0) %}
+                            <span class="label label-{{ globalAlertColor }}">{{ session_messaging|length }}</span>
+                        {% endif %}
                     {% endif %}
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="header">Vous avez {{ session_messaging|length }} notifications</li>
-                    <li>
-                        {% if session_messaging is defined and session_messaging|length > 0 %}
-                            <ul class="menu">
-                                {% for message in session_messaging %}
-                                    {% if (message.errorCode == 0) %}
-                                        <li>
-                                            <a href="#" title="{{ message.message }}">
-                                                <i class="fa fa-hand-spock-o text-green"></i>  {{ message.message }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                    {% if (message.errorCode != 0) %}
-                                        <li>
-                                            <a href="#" title="{{ message.message }}">
-                                                <i class="fa fa-warning text-yellow"></i> {{ message.message }}
-                                            </a>
-                                        </li>
-                                    {% endif %}
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                    </li>
+                    {% if session_messaging is defined %}
+                        <li class="header">Vous avez {{ session_messaging|length }} notifications</li>
+                        <li>
+                            {% if session_messaging is defined and session_messaging|length > 0 %}
+                                <ul class="menu">
+                                    {% for message in session_messaging %}
+                                        {% if (message.errorCode == 0) %}
+                                            <li>
+                                                <a href="#" title="{{ message.message }}">
+                                                    <i class="fa fa-hand-spock-o text-green"></i>  {{ message.message }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                        {% if (message.errorCode != 0) %}
+                                            <li>
+                                                <a href="#" title="{{ message.message }}">
+                                                    <i class="fa fa-warning text-yellow"></i> {{ message.message }}
+                                                </a>
+                                            </li>
+                                        {% endif %}
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </li>
+                    {% endif %}
                 </ul>
             </li>
 

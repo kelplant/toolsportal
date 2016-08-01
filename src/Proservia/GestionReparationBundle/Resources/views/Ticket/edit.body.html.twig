@@ -151,12 +151,14 @@
             </form>
             <div class="modal-footer">
                 <ul class="nav nav-tabs">
-                    <li role="presentation" class="active ticket_view_menu" id="ticket_actions" onclick="ticketMenu(this.id);"><a href="#">Actions</a></li>
+                    {% if 'ROLE_EDF' in app.user.roles == false %}
+                        <li role="presentation" class="active ticket_view_menu" id="ticket_actions" onclick="ticketMenu(this.id);"><a href="#">Actions</a></li>
+                    {% endif %}
                     <li role="presentation" class="ticket_view_menu" id="ticket_historique" onclick="ticketMenu(this.id);"><a href="#">Historique</a></li>
                 </ul>
 
                 <div class="col-sm-12">
-                    <div class="container-fluid ticket_middle_block" id="ticket_actions_block">
+                    <div class="container-fluid ticket_middle_block {% if 'ROLE_EDF' in app.user.roles == true %} hide {% endif %}" id="ticket_actions_block">
                         <form action="{{ path('form_exec_add_ticket_event') }}" method="post" class="form-horizontal" id="form-events" enctype="multipart/form-data">
                             <input type="hidden" name="ticketEvent[ticketId]" id="ticketEvent_ticketId">
                             {{ form_widget(formEdit._token) }}
@@ -215,7 +217,7 @@
                         </form>
                     </div>
 
-                    <div class="table-responsive ticket_middle_block hide" id="ticket_historique_block">
+                    <div class="table-responsive ticket_middle_block {% if 'ROLE_EDF' in app.user.roles == false %} hide {% endif %}" id="ticket_historique_block">
                         <table class="table table-striped display" id="bootstrap-list-events" style="margin: 0px;width: 100%">
                             <thead>
                             <tr>

@@ -1,10 +1,12 @@
 {% if entity is defined %}
     <div class="disabled" data-href="#" xmlns="http://www.w3.org/1999/html">
-        {% if entity != '' and entity != 'salesforce_profile' and entity != 'salesforce_groupe' and entity != 'salesforce_territory' and entity != 'active_directory_group' and entity != 'active_directory_organisation_unit' and entity != 'google_group' %}
-            {% if app.request.query.get('isArchived') is defined and app.request.query.get('isArchived') == 0 or app.request.query.get('isArchived') is not defined %}
-            <button type="button" class="btn btn-primary btn-success pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAdd" id="addForm">
-                <i class="fa fa-plus"></i> Nouveau
-            </button>
+        {% if 'ROLE_EDF' in app.user.roles == false %}
+            {% if entity != '' and entity != 'salesforce_profile' and entity != 'salesforce_groupe' and entity != 'salesforce_territory' and entity != 'active_directory_group' and entity != 'active_directory_organisation_unit' and entity != 'google_group' %}
+                {% if app.request.query.get('isArchived') is defined and app.request.query.get('isArchived') == 0 or app.request.query.get('isArchived') is not defined %}
+                    <button type="button" class="btn btn-primary btn-success pull-right font_exo_2 marginABitABitLeft" data-toggle="modal" data-target="#modalAdd" id="addForm">
+                        <i class="fa fa-plus"></i> Nouveau
+                    </button>
+                {% endif %}
             {% endif %}
         {% endif %}
         {% if entity == 'etiquette_list' %}

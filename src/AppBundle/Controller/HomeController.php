@@ -17,10 +17,10 @@ class HomeController extends Controller
     {
         if ($this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
 
-            if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
                 return $this->redirect($this->generateUrl('homepage_hello'));
             }
-            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER')) {
+            if ($this->get('security.authorization_checker')->isGranted('ROLE_USER') == 0) {
                 return $this->render('@App/Default/noaccess.view.html.twig');
             }
         }
